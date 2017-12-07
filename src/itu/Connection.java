@@ -82,7 +82,13 @@ public class Connection {
 
     String path = System.getProperty("user.dir");
     URL url = getClass().getResource(path);
-    Image image = Toolkit.getDefaultToolkit().getImage("src/itu/1.jpg");
+    Image image = Toolkit.getDefaultToolkit().getImage("src/itu/1.png");
+    Image image1 = Toolkit.getDefaultToolkit().getImage("src/itu/2.png");
+    Image image2 = Toolkit.getDefaultToolkit().getImage("src/itu/3.png");
+    Image image3 = Toolkit.getDefaultToolkit().getImage("src/itu/4.png");
+    Image image4 = Toolkit.getDefaultToolkit().getImage("src/itu/5.png");
+    Image image5 = Toolkit.getDefaultToolkit().getImage("src/itu/6.png");
+        
     // BufferedImage image = ImageIO.read(new File(path + "/src/itu/1.jpg"));
 
     JPanel friends;
@@ -188,28 +194,28 @@ public class Connection {
                             } else if (store1.contains(i)) {
 
                                 i = i + 7;
-                                StyleConstants.setIcon(style, new ImageIcon(image));
-                                doc.insertString(doc.getLength(), "ignoring", style);
+                                pan.serverSendMessage(prt, 2 , image1);
+                                store.clear();
                             } else if (store2.contains(i)) {
 
                                 i = i + 7;
-                                StyleConstants.setIcon(style, new ImageIcon(image));
-                                doc.insertString(doc.getLength(), "ignoring", style);
+                               pan.serverSendMessage(prt, 2 , image2);
+                                store.clear();
                             } else if (store3.contains(i)) {
 
                                 i = i + 7;
-                                StyleConstants.setIcon(style, new ImageIcon(image));
-                                doc.insertString(doc.getLength(), "ignoring", style);
+                                pan.serverSendMessage(prt, 2 , image3);
+                                store.clear();
                             } else if (store4.contains(i)) {
 
                                 i = i + 7;
-                                StyleConstants.setIcon(style, new ImageIcon(image));
-                                doc.insertString(doc.getLength(), "ignoring", style);
+                                pan.serverSendMessage(prt, 2 , image4);
+                                store.clear();
                             } else if (store5.contains(i)) {
 
                                 i = i + 7;
-                                StyleConstants.setIcon(style, new ImageIcon(image));
-                                doc.insertString(doc.getLength(), "ignoring", style);
+                                pan.serverSendMessage(prt, 2 , image5);
+                                store.clear();
                             } else {
                                  System.out.format("mess");
                                  pan.serverSendMessage(prt, 1 , image);
@@ -243,7 +249,7 @@ public class Connection {
                             mes.pipes(username, read, write);
                             docs.put(message[1], mes.docs());
                             StyledDocument per = (StyledDocument) docs.get(message[1]);
-                            // todo printer(message[2], per);
+                           // printer(message[2], per);
                             // per.insertString(per.getLength(),message[2], null); 
                         }
 
