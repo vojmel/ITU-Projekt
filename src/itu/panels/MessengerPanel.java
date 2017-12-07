@@ -66,8 +66,11 @@ public class MessengerPanel extends javax.swing.JPanel {
     
     
     // chat vypis zprav
+    
+    StyledDocument doc;
     JTextPane chat_space;
     JScrollPane scroll2;
+    Style style;
     
     GridBagConstraints content;
     
@@ -75,11 +78,15 @@ public class MessengerPanel extends javax.swing.JPanel {
     public MessengerPanel(ClientBean bean) {
         this.bean = bean;
         
+       
         initComponents();
     }
 
     
     private void initComponents() {
+        
+        
+        
         
         this.setBackground(Color.white);
         
@@ -99,7 +106,8 @@ public class MessengerPanel extends javax.swing.JPanel {
         
         // message okno
         
-        
+          doc = chat_space.getStyledDocument();
+        style = doc.addStyle("StyleName", null);
         
         // pratele
         // search
@@ -112,8 +120,19 @@ public class MessengerPanel extends javax.swing.JPanel {
     //
     // Pokud dojde od serveru nessage tak se zavola tato funkce
     //
-    public void serverSendMessage() {
+    public void serverSendMessage(String prt, int mode,Image image) throws BadLocationException {
         
+         if (mode == 1)
+            doc.insertString(doc.getLength(), prt, null);
+         
+         else if (mode == 2)
+         {
+             
+            StyleConstants.setIcon(style, new ImageIcon(image));
+            doc.insertString(doc.getLength(), "ignoring", style);
+        
+         }
+         
         // reload peoples
         
         // reload messages

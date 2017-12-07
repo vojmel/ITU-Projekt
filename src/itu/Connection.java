@@ -5,6 +5,8 @@
  */
 package itu;
 
+import itu.ClientBean;
+import itu.panels.MessengerPanel;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.Toolkit;
@@ -74,6 +76,9 @@ public class Connection {
     StyledDocument doc;
     SimpleAttributeSet keyWord = new SimpleAttributeSet();
     Style style;
+    private ClientBean bean;
+    MessengerPanel pan;
+   
 
     String path = System.getProperty("user.dir");
     URL url = getClass().getResource(path);
@@ -84,12 +89,17 @@ public class Connection {
 
     int mover = 0;
     int jj = 0;
+
+  
     
     
     
 
-    public void Connection() {
-        
+    public Connection(ClientBean bean) {
+      /*   doc = chat_space.getStyledDocument();
+        style = doc.addStyle("StyleName", null);*/
+        this.bean = bean;
+        pan = bean.getMessenger();
 
     }
 
@@ -128,7 +138,7 @@ public class Connection {
             ArrayList<Integer> store5 = new ArrayList();
 
             try {
-
+                 System.out.format("what");
                 while ((stream = read.readLine()) != null) {
 
                     // doc.insertString(doc.getLength(), stream, null);
@@ -165,12 +175,15 @@ public class Connection {
 
                         for (int i = 0; i < message[1].length(); i++) {
                             String prt = "" + message[1].charAt(i);
+                           
+                            System.out.format(Integer.toString(message[1].length()));
                             if (store.contains(i)) // nahradi retezec smajlikem
                             {
 
                                 i = i + 7;
-                                StyleConstants.setIcon(style, new ImageIcon(image));
-                                doc.insertString(doc.getLength(), "ignoring", style);
+                               /* StyleConstants.setIcon(style, new ImageIcon(image));
+                                doc.insertString(doc.getLength(), "ignoring", style); */
+                                pan.serverSendMessage(prt, 2 , image);
                                 store.clear();
                             } else if (store1.contains(i)) {
 
@@ -198,7 +211,9 @@ public class Connection {
                                 StyleConstants.setIcon(style, new ImageIcon(image));
                                 doc.insertString(doc.getLength(), "ignoring", style);
                             } else {
-                                doc.insertString(doc.getLength(), prt, null);
+                                 System.out.format("mess");
+                                 pan.serverSendMessage(prt, 1 , image);
+                               // doc.insertString(doc.getLength(), prt, null);
                             }
                         }
 
@@ -256,7 +271,7 @@ public class Connection {
             try {
                 //sock = new Socket("147.229.216.205", 21201);
                 //sock = new Socket("192.168.0.47", 21201);
-                sock = new Socket("12.12.12.2", 21201);
+                sock = new Socket("147.229.216.205", 21201);
                 //sock.setSoTimeout(10000);
                 InputStreamReader streamreader = new InputStreamReader(sock.getInputStream());
                 read = new BufferedReader(streamreader);

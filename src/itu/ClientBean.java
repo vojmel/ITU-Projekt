@@ -17,10 +17,11 @@ public class ClientBean {
     public ClientBean(ClientFrame frame) {
         
         // init all
-        connection = new Connection();
+        messenger = new MessengerPanel(this);
+        connection = new Connection(this);
         login = new LoginPanel(this);
         registration = new RegistrationPanel(this);
-        messenger = new MessengerPanel(this);
+        
         
         this.frame = frame;
         
