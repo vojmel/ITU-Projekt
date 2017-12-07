@@ -38,7 +38,8 @@ public class ClientFrame extends JFrame  implements WindowListener,
         // set layout
         initComponents();
         
-        showLogin();
+        //showLogin();
+        showMessenger();
     }
     
     private void initComponents() {
