@@ -78,6 +78,7 @@ public class Connection {
     Style style;
     private ClientBean bean;
     MessengerPanel pan;
+    parser par ;
    
 
     String path = System.getProperty("user.dir");
@@ -106,6 +107,7 @@ public class Connection {
         style = doc.addStyle("StyleName", null);*/
         this.bean = bean;
         pan = bean.getMessenger();
+        par = new parser(bean);
 
     }
 
@@ -128,12 +130,19 @@ public class Connection {
         Thread IncomingReader = new Thread(new IncomingReader());
         IncomingReader.start();
     }
+    
+    
+   
 
     public class IncomingReader implements Runnable {
 
         @Override
         public void run() {
 
+            
+            
+            
+            
             String[] message;
             String stream;
             ArrayList<Integer> store = new ArrayList();
@@ -150,8 +159,11 @@ public class Connection {
                     // doc.insertString(doc.getLength(), stream, null);
                     message = stream.split(":");
                     System.out.format(stream);
+                    par.parse(message);
+                    
+                    
 
-                    if (message[0].equals("MUC OK")) {
+                 /*   if (message[0].equals("MUC OK")) {
 
                         if (message[1].contains("Sx(fun)")) {
                             for (int i = -1; (i = message[1].indexOf("Sx(fun)", i + 1)) != -1; i++) { // doplni indexy s nalezenym retezcem
@@ -187,8 +199,7 @@ public class Connection {
                             {
 
                                 i = i + 7;
-                               /* StyleConstants.setIcon(style, new ImageIcon(image));
-                                doc.insertString(doc.getLength(), "ignoring", style); */
+                             
                                 pan.serverSendMessage(prt, 2 , image);
                                 store.clear();
                             } else if (store1.contains(i)) {
@@ -250,7 +261,7 @@ public class Connection {
                             docs.put(message[1], mes.docs());
                             StyledDocument per = (StyledDocument) docs.get(message[1]);
                            // printer(message[2], per);
-                            // per.insertString(per.getLength(),message[2], null); 
+                           // per.insertString(per.getLength(),message[2], null); 
                         }
 
                     } else {
@@ -259,12 +270,13 @@ public class Connection {
                         // chat_space.setCaretPosition(chat_space.getDocument().getLength());
                     }
 
-                    doc.insertString(doc.getLength(), "\n", null);
+                    doc.insertString(doc.getLength(), "\n", null);*/
                 }
-            } catch (Exception ex) {
+            }
+                 catch (Exception ex) {
             }
         }
-    }
+    }       
 
     public int try_connect(String log, String pswd, int mode) {
         String ans;
@@ -284,6 +296,8 @@ public class Connection {
                 write = new PrintWriter(sock.getOutputStream());
                 
                 connection = true;
+                
+                par.pipes("", read, write);
                 
             } catch (Exception ex) {
 

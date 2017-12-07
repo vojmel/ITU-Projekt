@@ -139,6 +139,25 @@ public class MessengerPanel extends javax.swing.JPanel {
         
     }
     
+    public void serverSendPersonalMessage(String prt, int mode,Image image) throws BadLocationException {
+        
+         if (mode == 1)
+            doc.insertString(doc.getLength(), prt, null);
+         
+         else if (mode == 2)
+         {
+             
+            StyleConstants.setIcon(style, new ImageIcon(image));
+            doc.insertString(doc.getLength(), "ignoring", style);
+        
+         }
+         
+        // reload peoples
+        
+        // reload messages
+        
+    }
+    
     
     private void loadData() {
         
