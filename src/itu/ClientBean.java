@@ -15,6 +15,7 @@ public class ClientBean {
     private Connection connection;
     private ClientFrame frame;
     private FriendsPanel friendsList;
+    private parser parser;
     
     public ClientBean(ClientFrame frame) {
         
@@ -52,6 +53,14 @@ public class ClientBean {
 
     public FriendsPanel getFriendsList() {
         return friendsList;
+    }
+
+    public void setParser(parser parser) {
+        this.parser = parser;
+    }
+
+    public parser getParser() {
+        return parser;
     }
     
     

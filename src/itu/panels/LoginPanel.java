@@ -84,7 +84,7 @@ public class LoginPanel extends javax.swing.JPanel {
                
         // Login input
         jTextField2.setBorder(BorderFactory.createMatteBorder(0, 0, 1, 0, new Color(204, 204, 204)));
-        jTextField2.setUI(new HintTextFieldUI("Login", true));
+        jTextField2.setUI(new HintTextFieldUI("Login", false));
         jTextField2.setPreferredSize(new Dimension(width, 30));
         add(jTextField2, gbc);
         
@@ -95,7 +95,7 @@ public class LoginPanel extends javax.swing.JPanel {
         
         // Password input
         jTextField1.setBorder(BorderFactory.createMatteBorder(0, 0, 1, 0, new Color(204, 204, 204)));
-        jTextField1.setUI(new HintTextFieldUI("Password", true));
+        jTextField1.setUI(new HintTextFieldUI("Password", false));
         jTextField1.setPreferredSize(new Dimension(width, 30));
         jTextField1.setEchoChar('*');
         add(jTextField1, gbc);

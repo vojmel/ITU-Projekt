@@ -7,12 +7,14 @@ package itu.panels;
 
 import itu.ClientBean;
 import itu.ClientFrame;
+import itu.HintTextFieldUI;
 import itu.idk;
 import itu.smileys;
 import java.awt.Color;
 import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Image;
@@ -62,7 +64,7 @@ import javax.swing.text.StyledDocument;
  *
  * @author christian
  */
-public class MessengerPanel extends javax.swing.JPanel {
+public class MessengerPanel extends javax.swing.JPanel implements ActionListener  {
 
     // odkaz na bean
     private ClientBean bean;
@@ -77,6 +79,9 @@ public class MessengerPanel extends javax.swing.JPanel {
     JTextPane chat_space;
     JScrollPane scroll2;
     Style style;
+    SimpleAttributeSet messageStyle;
+    SimpleAttributeSet senderStyle;
+    SimpleAttributeSet senderMe;
     
     JButton send;
     JButton smiley;
@@ -112,20 +117,87 @@ public class MessengerPanel extends javax.swing.JPanel {
         chat_space = new JTextPane();
         chat_space.setSize(200, 400);
         scroll2 = new JScrollPane(chat_space);
-        scroll2.setBounds(400, 400, 200, 400);
-        chat_space.setBackground(Color.red);
+        scroll2.setBounds(200, 200, 10, 10);
+        //chat_space.setBackground(Color.red);
+        chat_space.setBounds(20, 20, 670, 670);
         add(chat_space);
-        smiley.setBounds(600, 100, 100, 30);
-        send.setBounds(600, 200, 100, 30);
-        add(smiley);
-        add(send);
         
-        // message okno
+
         
         doc = chat_space.getStyledDocument();
-        style = doc.addStyle("StyleName", null);
-        Send_text_field.setBounds(40, 280, 500, 100);
+        chat_space.setEditable(false);
         
+        style = doc.addStyle("StyleName", null);
+        
+	
+        
+        // Odesilate style
+        senderStyle = new SimpleAttributeSet();
+        StyleConstants.setLeftIndent(senderStyle, 20);
+        StyleConstants.setFirstLineIndent(senderStyle, -20);
+        StyleConstants.setForeground(senderStyle, new Color(150, 150, 150));
+        StyleConstants.setFontSize(senderStyle, 15);
+        
+        senderMe = new SimpleAttributeSet();
+        StyleConstants.setLeftIndent(senderMe, 20);
+        StyleConstants.setFirstLineIndent(senderMe, -20);
+        StyleConstants.setForeground(senderMe, new Color(150, 150, 150));
+        StyleConstants.setFontSize(senderMe, 15);
+        
+        // Message style
+        messageStyle = new SimpleAttributeSet();
+        StyleConstants.setLeftIndent(messageStyle, 20);
+        StyleConstants.setFirstLineIndent(messageStyle, -20);
+        StyleConstants.setForeground(messageStyle, Color.black);
+        StyleConstants.setFontSize(senderStyle, 18);
+        
+        
+        
+        
+        
+        // Message
+        JPanel obalMessage = new JPanel();
+        obalMessage.setLayout(null);
+        obalMessage.setBounds(0, 680+20, 700, 60);
+        obalMessage.setBorder(BorderFactory.createMatteBorder(1, 0, 0, 0, new Color(204, 204, 204)));
+        obalMessage.setBackground(Color.white);
+        
+        Send_text_field = new JTextField();
+        Send_text_field.setBounds(20, 2, 500, 60);
+        Send_text_field.setBorder(BorderFactory.createMatteBorder(0, 0, 0, 0, new Color(204, 204, 204)));
+        Send_text_field.setBackground(Color.white);
+        
+        Send_text_field.setUI(new HintTextFieldUI("Write message", false, new Color(150, 150, 150)));
+  
+        obalMessage.add(Send_text_field);
+        
+        // Smile btn
+        smiley = new JButton("");
+        smiley.setBounds(520, 18, 31, 32);
+        smiley.setBorder(BorderFactory.createMatteBorder(0, 0, 0, 0, new Color(204, 204, 204)));
+        smiley.setBackground(Color.white);
+        smiley.addActionListener(this);
+        try {
+            BufferedImage originalImage = ImageIO.read(getClass().getResource("t.png"));
+            //int type = originalImage.getType() == 0? BufferedImage.TYPE_INT_ARGB : originalImage.getType();
+            //BufferedImage resizeImagePng = resizeImage(originalImage, type);
+            smiley.setIcon(new ImageIcon(originalImage));
+        } catch (Exception ex) {
+            System.out.println(ex);
+        }
+        obalMessage.add(smiley);
+        
+        // Send btn
+        send = new JButton("Send message");
+        send.setBorder(BorderFactory.createMatteBorder(0, 0, 0, 0, new Color(204, 204, 204)));
+        send.setBounds(570, 18, 100, 30);
+        send.setBackground(Color.white);
+        send.setForeground(new Color(102, 163, 255));
+        send.addActionListener(this);
+        obalMessage.add(send);
+        
+        add(obalMessage);
+             
         // pratele
         FriendsPanel friends = bean.getFriendsList();
         add(friends);
@@ -139,32 +211,50 @@ public class MessengerPanel extends javax.swing.JPanel {
         
     }
     
+    private static BufferedImage resizeImage(BufferedImage originalImage, int type){
+	BufferedImage resizedImage = new BufferedImage(30, 30, type);
+	Graphics2D g = resizedImage.createGraphics();
+	g.drawImage(originalImage, 0, 0, 30, 30, null);
+	g.dispose();
+
+	return resizedImage;
+    }
     
     //
     // Pokud dojde od serveru nessage tak se zavola tato funkce
     //
-    public void serverSendMessage(String prt, int mode,Image image) throws BadLocationException {
+    public void serverSendMessage(String prt, int mode, Image image) throws BadLocationException {
         
-         if (mode == 1)
-            doc.insertString(doc.getLength(), prt, null);
-         
-         else if (mode == 2)
-         {
-             
-            StyleConstants.setIcon(style, new ImageIcon(image));
-            doc.insertString(doc.getLength(), "ignoring", style);
-        
-         }
-         
-        // reload peoples
-        
-        // reload messages
-        
+        // Zprava
+        if (mode == 1)
+           doc.insertString(doc.getLength(), prt, messageStyle);
+
+        // smile
+        else if (mode == 2) {
+
+           StyleConstants.setIcon(style, new ImageIcon(image));
+           doc.insertString(doc.getLength(), "ignoring", style);
+
+        }
+        // odesilatel
+        else if (mode == 3) {
+
+            if (prt.equalsIgnoreCase(login)) {
+                
+                doc.insertString(doc.getLength(), prt, senderMe);
+                doc.insertString(doc.getLength(), "\n  ", senderMe);
+            } 
+            else {
+                
+                doc.insertString(doc.getLength(), prt, senderStyle);
+                doc.insertString(doc.getLength(), "\n   ", senderStyle);
+            }
+        }
     }
     
     public void setName(String name)
     {
-        nm = name;
+        login = name;
     }
     
     public void serverSendPersonalMessage(String prt, int mode,Image image) throws BadLocationException {
@@ -194,8 +284,9 @@ public class MessengerPanel extends javax.swing.JPanel {
                 Send_text_field.requestFocus();
             } else {
                 try {
-
-                    write.println("SIC " + login + " " + nm + " /r/n " + Send_text_field.getText());
+                    
+                    write.println("MUC " + login + " /r/n " + Send_text_field.getText());
+                   
                     write.flush();
                     Send_text_field.setText("");
 

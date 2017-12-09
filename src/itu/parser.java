@@ -59,6 +59,7 @@ public class parser {
 
         this.bean = bean;
         pan = bean.getMessenger();
+        bean.setParser(this);
     }
 
     public void printer(String message, StyledDocument docu) throws BadLocationException {
@@ -184,10 +185,20 @@ public class parser {
                 }
             }
 
-            for (int i = 0; i < message[1].length(); i++) {
+            // get sender
+            // user messagecondtent
+            // odstraneni pripadnych pocatecnich mezer
+            String[] sender = message[1].replaceAll("^\\s+","").split("\\s+");
+            
+            // write sender
+            pan.serverSendMessage(sender[0], 3, image);
+            
+            // oddelani odesilatele + 2 pocet mezer
+            for (int i = sender[0].length()+2; i < message[1].length(); i++) {
                 String prt = "" + message[1].charAt(i);
 
-                System.out.format(Integer.toString(message[1].length()));
+                //System.out.format(Integer.toString(message[1].length()));
+                
                 if (store.contains(i)) // nahradi retezec smajlikem
                 {
 
@@ -222,11 +233,14 @@ public class parser {
                     pan.serverSendMessage(prt, 2, image5);
                     store5.clear();
                 } else {
-                    System.out.format("mess");
+                    //System.out.format("mess");
                     pan.serverSendMessage(prt, 1, image);
                     // doc.insertString(doc.getLength(), prt, null);
                 }
             }
+            
+            // posle znak konce radku
+            pan.serverSendMessage("\n", 1, image);
 
         } else if (message[0].equals("LOG OK")) {  // logi nprobehl ok
 
@@ -244,18 +258,18 @@ public class parser {
             
             System.out.format("niggersjewsci ");
             System.out.format(message[1]);
+            
             if (docs.containsKey(message[1])) {
 
                 // okno je vytvore
-                
                 StyledDocument per = (StyledDocument) docs.get(message[1]);
                 printer(message[2], per);
                 //   per.insertString(per.getLength(),message[2], null); 
             
             
             } else {
-                // prijde soukroma sprava 
                 
+                // prijde soukroma sprava 
                 pm mes = new pm(message[1], login); //mesaage[1] sender
                 mes.pipes(username, read, write);
                 docs.put(message[1], mes.docs());
@@ -275,9 +289,6 @@ public class parser {
         // nastaveni novych lidi
         bean.getFriendsList().setPeople(connected);
         
-        
-
-        doc.insertString(doc.getLength(), "\n", null);
    
 
     }
@@ -286,4 +297,24 @@ public class parser {
         return pms;
     }
 
+    public BufferedReader getRead() {
+        return read;
+    }
+
+    public PrintWriter getWrite() {
+        return write;
+    }
+    
+    
+    public void addToDocs(String user, pm mes) {
+        docs.put(user, mes.docs());
+    }
+
+    public void addToPms(String user, pm mes) {
+        pms.put(user, mes);
+    }
+    
+    
+    
 }
+

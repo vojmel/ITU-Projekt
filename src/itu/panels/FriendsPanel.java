@@ -72,10 +72,10 @@ public class FriendsPanel extends javax.swing.JPanel {
         add(search);
         
         searchTextField = new JTextField();
-        searchTextField.setBorder(BorderFactory.createMatteBorder(0, 0, 0, 0, new Color(204, 204, 204)));
+        searchTextField.setBorder(BorderFactory.createMatteBorder(0, 10, 0, 0, new Color(240, 240, 240)));
         searchTextField.setBackground(new Color(240, 240, 240));
         searchTextField.setBounds(10, 10, ((int) sirka)-25, 30);
-        searchTextField.setUI(new HintTextFieldUI("Search", true, new Color(150, 150, 150)));
+        searchTextField.setUI(new HintTextFieldUI("   Search", false, new Color(150, 150, 150)));
         search.add(searchTextField);
         
         
@@ -111,7 +111,7 @@ public class FriendsPanel extends javax.swing.JPanel {
         for (int i = 0; i < getNumberOfPeople(); i++) {
             
             // todo NAME
-            JPanel pnIn = new FriendComponent(getNameOf(i));
+            JPanel pnIn = new FriendComponent(getNameOf(i), bean);
             pnIn.setBounds(0, i*60, ((int) sirka), 60);
             
             scrollPanel.add(pnIn);
