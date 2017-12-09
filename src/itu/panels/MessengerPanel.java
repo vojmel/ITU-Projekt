@@ -7,6 +7,8 @@ package itu.panels;
 
 import itu.ClientBean;
 import itu.ClientFrame;
+import itu.idk;
+import itu.smileys;
 import java.awt.Color;
 import java.awt.Container;
 import java.awt.Dimension;
@@ -64,7 +66,10 @@ public class MessengerPanel extends javax.swing.JPanel {
 
     // odkaz na bean
     private ClientBean bean;
-    
+    //pipes
+    Socket sock;
+    BufferedReader read;
+    PrintWriter write;
     
     // chat vypis zprav
     
@@ -73,13 +78,21 @@ public class MessengerPanel extends javax.swing.JPanel {
     JScrollPane scroll2;
     Style style;
     
+    JButton send;
+    JButton smiley;
+    JTextField Send_text_field;
+    String login;
+    String nm ="";
+    
+    
     javax.swing.JPanel content;
     
 
     public MessengerPanel(ClientBean bean) {
         this.bean = bean;
         
-       
+        
+        
         initComponents();
     }
 
@@ -95,7 +108,6 @@ public class MessengerPanel extends javax.swing.JPanel {
         this.setBackground(Color.white);
         //this.add(content);
         
-        
         // chat okno
         chat_space = new JTextPane();
         chat_space.setSize(200, 400);
@@ -103,12 +115,16 @@ public class MessengerPanel extends javax.swing.JPanel {
         scroll2.setBounds(400, 400, 200, 400);
         chat_space.setBackground(Color.red);
         add(chat_space);
+        smiley.setBounds(600, 100, 100, 30);
+        send.setBounds(600, 200, 100, 30);
+        add(smiley);
+        add(send);
         
         // message okno
         
         doc = chat_space.getStyledDocument();
         style = doc.addStyle("StyleName", null);
-       
+        Send_text_field.setBounds(40, 280, 500, 100);
         
         // pratele
         FriendsPanel friends = bean.getFriendsList();
@@ -146,6 +162,11 @@ public class MessengerPanel extends javax.swing.JPanel {
         
     }
     
+    public void setName(String name)
+    {
+        nm = name;
+    }
+    
     public void serverSendPersonalMessage(String prt, int mode,Image image) throws BadLocationException {
         
          if (mode == 1)
@@ -163,6 +184,50 @@ public class MessengerPanel extends javax.swing.JPanel {
         
         // reload messages
         
+    }
+    
+     public void actionPerformed(ActionEvent e) {
+        if (e.getSource() == send) {
+            String empty = "";
+            if ((Send_text_field.getText()).equals(empty)) {
+                Send_text_field.setText("");
+                Send_text_field.requestFocus();
+            } else {
+                try {
+
+                    write.println("SIC " + login + " " + nm + " /r/n " + Send_text_field.getText());
+                    write.flush();
+                    Send_text_field.setText("");
+
+                    Send_text_field.requestFocus();
+                } catch (Exception ex) {
+                    //chat_space.append("Message was not sent. \n");
+                }
+                Send_text_field.setText("");
+                Send_text_field.requestFocus();
+            }
+
+            Send_text_field.setText("");
+            Send_text_field.requestFocus();
+        } else if (e.getSource() == smiley) {
+
+            try {
+                smileys field = new smileys(write, "SIC " + login + " " + nm + " /r/n ");
+                field.setVisible(true);
+
+            } catch (IOException ex) {
+                Logger.getLogger(idk.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
+        }
+
+    }
+     
+    public void pipes(String user, BufferedReader rd, PrintWriter wd) {
+
+        read = rd;
+        write = wd;
+
     }
     
     
