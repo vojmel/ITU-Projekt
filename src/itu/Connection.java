@@ -273,7 +273,9 @@ public class Connection {
                     doc.insertString(doc.getLength(), "\n", null);*/
                 }
             }
-                 catch (Exception ex) {
+            catch (Exception ex) {
+                
+                System.err.println(ex.toString());
             }
         }
     }       
@@ -329,9 +331,12 @@ public class Connection {
                     for (String user : message[1].split(",")) {
                         connected.add(user);
                     }
+                    
+                    // nastaveni novych lidi
+                    bean.getFriendsList().setPeople(connected);
+                    
                     ListenThread();
-                    // todo log ok
-                    //people();
+                    
                     return 1;
                     
                 }
@@ -369,4 +374,10 @@ public class Connection {
         }
     }
 
+    public String getLogin() {
+        return login;
+    }
+
+    
+    
 }

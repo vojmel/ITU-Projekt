@@ -6,6 +6,7 @@
 package itu.panels;
 
 import static com.sun.org.apache.xalan.internal.xsltc.compiler.util.Type.Int;
+import itu.ClientBean;
 import itu.HintTextFieldUI;
 import itu.panels.Components.FriendComponent;
 import java.awt.Color;
@@ -32,15 +33,22 @@ import javax.swing.text.StyleConstants;
  */
 public class FriendsPanel extends javax.swing.JPanel {
     
+    private ClientBean bean;
+    
     private double sirka = 300;
     
     private JPanel scrollPanel;
     private JTextField searchTextField;
+    private ArrayList<String> people;
    
     
-    public FriendsPanel() {
+    public FriendsPanel(ClientBean bean) {
         super();
+        people = new ArrayList();
+        this.bean = bean;
+        
         initComponents();
+        
     }
     
     /**
@@ -74,9 +82,9 @@ public class FriendsPanel extends javax.swing.JPanel {
         
         // Panel pro pratele
         scrollPanel = new JPanel();
-        //scrollPanel.setBackground(Color.blue);
         scrollPanel.setLayout(null);
         scrollPanel.setPreferredSize(new Dimension(((int) sirka), getNumberOfPeople()*50));
+        scrollPanel.setBackground(new Color(240, 240, 240));
         
         // Vykresleni vsech pratel
         paintFriends();
@@ -87,12 +95,15 @@ public class FriendsPanel extends javax.swing.JPanel {
         scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
         scrollPane.setBounds(0, 50, ((int) sirka)-5, 715);
         scrollPane.setBorder(BorderFactory.createMatteBorder(1, 1, 0, 0, new Color(204, 204, 204)));
-        scrollPane.setBackground(Color.red);
+        scrollPane.setBackground(new Color(240, 240, 240));
         
        
         add(scrollPane);
     }
     
+    /**
+     * Vykresleni/Prekresleni prihlasenych
+     */
     private void paintFriends() {
         
         scrollPanel.removeAll();
@@ -105,6 +116,14 @@ public class FriendsPanel extends javax.swing.JPanel {
             
             scrollPanel.add(pnIn);
         }
+        
+        if (people.size() == 0) {
+            // show no logg users
+            JLabel msg = new JLabel("No one is online");
+            msg.setBounds(100, 0, 300, 100);
+            scrollPanel.add(msg);
+        }
+        
         scrollPanel.repaint();
     }
     
@@ -112,23 +131,35 @@ public class FriendsPanel extends javax.swing.JPanel {
     
     private int getNumberOfPeople() {
        // pocet pratel
-        return 200;
+        return people.size();
     }
     
     
     private String getNameOf(int index) {
         // Jmeno na indexu
-        return Integer.toString(index);
+        if (people.size() >= index) {
+            return people.get(index);
+        }
+        return "";
     }
     
     
    
     
-    public void setNewPeople(ArrayList<String> newList) {
+    public void setPeople(ArrayList<String> newList) {
         
+        // Zmenilo se neco?
+        if (newList.size() != people.size()) {
+            people.clear();
+            
+            for (String person : newList) {
+                person = person.trim();
+                if ( ! person.equalsIgnoreCase(bean.getConnection().getLogin())) {
+                    people.add(person);
+                }
+            }
+            
+            paintFriends(); // Znovu vykresleni
+        }
     }
-    
-    
-    
-    
 }

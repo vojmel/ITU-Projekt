@@ -270,6 +270,12 @@ public class parser {
                         // doc.insertString(doc.getLength(), stream, null);
             // chat_space.setCaretPosition(chat_space.getDocument().getLength());
         }
+        
+        
+        // nastaveni novych lidi
+        bean.getFriendsList().setPeople(connected);
+        
+        
 
         doc.insertString(doc.getLength(), "\n", null);
    

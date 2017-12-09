@@ -19,7 +19,7 @@ public class ClientBean {
     public ClientBean(ClientFrame frame) {
         
         // init all
-        friendsList = new FriendsPanel();
+        friendsList = new FriendsPanel(this);
         messenger = new MessengerPanel(this);
         connection = new Connection(this);
         login = new LoginPanel(this);
