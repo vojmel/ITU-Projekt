@@ -1,5 +1,6 @@
 package itu;
 
+import itu.panels.FriendsPanel;
 import itu.panels.LoginPanel;
 import itu.panels.MessengerPanel;
 import itu.panels.RegistrationPanel;
@@ -13,10 +14,12 @@ public class ClientBean {
     private MessengerPanel messenger;
     private Connection connection;
     private ClientFrame frame;
+    private FriendsPanel friendsList;
     
     public ClientBean(ClientFrame frame) {
         
         // init all
+        friendsList = new FriendsPanel();
         messenger = new MessengerPanel(this);
         connection = new Connection(this);
         login = new LoginPanel(this);
@@ -46,6 +49,12 @@ public class ClientBean {
     public ClientFrame getFrame() {
         return frame;
     }
+
+    public FriendsPanel getFriendsList() {
+        return friendsList;
+    }
+    
+    
     
     
 }

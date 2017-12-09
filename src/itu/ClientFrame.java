@@ -20,6 +20,7 @@ import java.awt.event.WindowFocusListener;
 import java.awt.event.WindowListener;
 import java.awt.event.WindowStateListener;
 import javax.swing.JFrame;
+import javax.swing.JPanel;
 
 //  Okno aplikace
 //
@@ -27,6 +28,7 @@ public class ClientFrame extends JFrame  implements WindowListener,
                                             WindowFocusListener,
                                             WindowStateListener{
     
+    private JPanel  content;
     private GridBagConstraints container;
     private ClientBean bean;
     
@@ -38,15 +40,15 @@ public class ClientFrame extends JFrame  implements WindowListener,
         // set layout
         initComponents();
         
-        //showLogin();
-        showMessenger();
+        showLogin();
+        //showMessenger();
     }
     
     private void initComponents() {
         
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         
-        this.setLayout(new GridBagLayout());
+        //this.setLayout(new GridBagLayout());
         container = new GridBagConstraints();
         container.gridwidth = GridBagConstraints.REMAINDER;
         container.fill = GridBagConstraints.HORIZONTAL;
@@ -57,6 +59,7 @@ public class ClientFrame extends JFrame  implements WindowListener,
         this.pack();
         this.setLocationRelativeTo(null);
         this.setVisible(true);
+        this.setResizable(false);
         
         // set listeners
         addWindowListener(this);
@@ -69,6 +72,7 @@ public class ClientFrame extends JFrame  implements WindowListener,
     // zobrazeni login
     public void showLogin(){
         
+        this.setLayout(new GridBagLayout());
         add(bean.getLogin(), container);
         bean.getLogin().show(true);
         bean.getRegistration().show(false);
@@ -78,6 +82,7 @@ public class ClientFrame extends JFrame  implements WindowListener,
     // zobrazeni registrace
     public void showRegistration() {
         
+        this.setLayout(new GridBagLayout());
         add(bean.getRegistration(), container);
         bean.getRegistration().show(true);
         bean.getLogin().show(false);
@@ -86,7 +91,10 @@ public class ClientFrame extends JFrame  implements WindowListener,
     
     public void showMessenger() {
         
-        add(bean.getMessenger(), container);
+        
+        this.setLayout(null);
+        
+        add(bean.getMessenger());
         bean.getLogin().show(false);
         bean.getRegistration().show(false);
         bean.getMessenger().show(true);

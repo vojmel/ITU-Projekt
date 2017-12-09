@@ -519,6 +519,9 @@ public class idk extends JFrame implements ActionListener, WindowListener,
 
                     } else if (message[0].equals("LOG OK")) {
 
+                        // tady se plni all
+                        
+                        
                         for (String user : message[1].split(",")) {
                             connected.add(user);
                         }
@@ -526,6 +529,11 @@ public class idk extends JFrame implements ActionListener, WindowListener,
                         people();
 
                     } else if (message[0].equals("DIS OK")) {
+                        
+                        
+                        // se umaze
+                        
+                        
                         System.out.format("niggersjewsci ");
                         System.out.format(message[1]);
                         connected.remove(message[1]);
@@ -594,6 +602,7 @@ public class idk extends JFrame implements ActionListener, WindowListener,
 
                 if (message[0].equals("NEW LOG OK")) {
 
+                    // tady 
                     for (String user : message[1].split(",")) {
                         connected.add(user);
                     }

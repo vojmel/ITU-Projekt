@@ -36,6 +36,7 @@ import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.imageio.ImageIO;
+import javax.swing.BorderFactory;
 import javax.swing.BoundedRangeModel;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -72,7 +73,7 @@ public class MessengerPanel extends javax.swing.JPanel {
     JScrollPane scroll2;
     Style style;
     
-    GridBagConstraints content;
+    javax.swing.JPanel content;
     
 
     public MessengerPanel(ClientBean bean) {
@@ -85,34 +86,40 @@ public class MessengerPanel extends javax.swing.JPanel {
     
     private void initComponents() {
         
+        this.setLayout(null);
         
-        
+        content = new JPanel();
+        //content.setBackground(Color.BLUE);
+        content.setBounds(0, 0, 1000, 800);
         
         this.setBackground(Color.white);
-        
-        // Center object in panel
-        this.setLayout(new GridBagLayout());
-        content = new GridBagConstraints();
-        content.gridwidth = GridBagConstraints.REMAINDER;
-        content.fill = GridBagConstraints.HORIZONTAL;
+        //this.add(content);
         
         
         // chat okno
         chat_space = new JTextPane();
         chat_space.setSize(200, 400);
         scroll2 = new JScrollPane(chat_space);
-        scroll2.setBounds(40, 40, 200, 400);
-        add(chat_space, content);
+        scroll2.setBounds(400, 400, 200, 400);
+        chat_space.setBackground(Color.red);
+        add(chat_space);
         
         // message okno
         
-          doc = chat_space.getStyledDocument();
+        doc = chat_space.getStyledDocument();
         style = doc.addStyle("StyleName", null);
+       
         
         // pratele
-        // search
+        FriendsPanel friends = bean.getFriendsList();
+        add(friends);
         
-        // jednotlivy pratele
+        
+        this.setBounds(0, 0, 1000, 800);
+        //this.setBackground(Color.GREEN);
+        
+        this.setBorder(BorderFactory.createMatteBorder(1, 1, 1, 1, new Color(204, 204, 204)));
+        this.repaint();
         
     }
     

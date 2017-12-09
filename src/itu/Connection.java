@@ -288,8 +288,8 @@ public class Connection {
             // connect
             try {
                 //sock = new Socket("147.229.216.205", 21201);
-                //sock = new Socket("192.168.0.47", 21201);
-                sock = new Socket("147.229.216.205", 21201);
+                sock = new Socket("12.12.12.6", 21201);
+                //sock = new Socket("147.229.216.205", 21201);
                 //sock.setSoTimeout(10000);
                 InputStreamReader streamreader = new InputStreamReader(sock.getInputStream());
                 read = new BufferedReader(streamreader);
