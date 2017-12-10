@@ -128,6 +128,12 @@ public class pm extends javax.swing.JFrame implements ActionListener, FocusListe
 
                   //  ListenThread();
         this.repaint();
+        
+        
+        // set listeners
+        addWindowListener(this);
+        addWindowFocusListener(this);
+        addWindowStateListener(this);
     }
 
     public void paintComponent(Graphics g) {
@@ -239,6 +245,7 @@ public class pm extends javax.swing.JFrame implements ActionListener, FocusListe
     @Override
     public void windowGainedFocus(WindowEvent e) {
         //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        bean.getFriendsList().notifyOnFriend(nm, false);
     }
 
     @Override

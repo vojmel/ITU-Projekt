@@ -46,7 +46,15 @@ public class FriendComponent extends javax.swing.JPanel  implements MouseListene
     public void setStateNotify(boolean state) {
         notified = state;
         
-        System.out.println(name+" is notified: "+state);
+        updateByState();
+    }
+    
+    private void updateByState() {
+        
+        this.setBackground(Color.white);
+        if (this.notified) {
+            this.setBackground(Color.red);
+        }
     }
     
     /**
@@ -67,6 +75,8 @@ public class FriendComponent extends javax.swing.JPanel  implements MouseListene
         this.setCursor(cursor);
         
         this.add(friendNameText);
+        
+        updateByState();
     }
 
     @Override

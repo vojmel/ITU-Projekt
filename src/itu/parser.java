@@ -255,16 +255,22 @@ public class parser {
             for (String user : message[1].split(",")) {
                 connected.add(user);
             }
+            
+            // nastaveni novych lidi
+            bean.getFriendsList().setPeople(connected);
 
         } else if (message[0].equals("DIS OK")) {  // odpojeni 
             
             System.out.format("niggersjewsci ");
             System.out.format(message[1]);
             connected.remove(message[1]);
+            
+            // nastaveni novych lidi
+            bean.getFriendsList().setPeople(connected);
 
         } else if (message[0].equals("SIC OK")) { // soukroma zprava
             
-            String sender = message[1];
+            String sender = message[1].trim();
             
             System.out.format("niggersjewsci ");
             System.out.format(sender);
@@ -272,11 +278,11 @@ public class parser {
             // show upozorneni u pritele
             bean.getFriendsList().notifyOnFriend(sender, true);
 
-            if (docs.containsKey(message[1])) {
+            if (docs.containsKey(sender)) {
 
                 // okno je vytvore
                 StyledDocument per = (StyledDocument) docs.get(sender);
-                printer(message[2], per);
+                printer(message[2], per, sender);
                 //   per.insertString(per.getLength(),message[2], null);
                 
             } else {
@@ -287,7 +293,7 @@ public class parser {
                 docs.put(sender, mes.docs());
                 pms.put(sender, mes);
                 StyledDocument per = (StyledDocument) docs.get(sender);
-                printer(message[2], per);
+                printer(message[2], per, sender);
                 // per.insertString(per.getLength(),message[2], null); 
             }
 
@@ -297,9 +303,6 @@ public class parser {
             // chat_space.setCaretPosition(chat_space.getDocument().getLength());
         }
         
-        
-        // nastaveni novych lidi
-        bean.getFriendsList().setPeople(connected);
         
    
 
