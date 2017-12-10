@@ -548,7 +548,7 @@ public class idk extends JFrame implements ActionListener, WindowListener,
                             printer(message[2], per);
                             //   per.insertString(per.getLength(),message[2], null); 
                         } else {
-                            pm mes = new pm(message[1], login); //mesaage[1] sender
+                            pm mes = new pm(null, message[1], login); //mesaage[1] sender
                             mes.pipes(username, read, write);
                             docs.put(message[1], mes.docs());
                             StyledDocument per = (StyledDocument) docs.get(message[1]);
@@ -730,7 +730,7 @@ public class idk extends JFrame implements ActionListener, WindowListener,
 
                     } else {
                         try {
-                            pm mes = new pm(b.getText(), login);
+                            pm mes = new pm(null, b.getText(), login);
                             mes.pipes(username, read, write);
                             docs.put(b.getText(), mes.docs());
 

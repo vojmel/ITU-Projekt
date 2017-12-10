@@ -254,27 +254,31 @@ public class parser {
             System.out.format(message[1]);
             connected.remove(message[1]);
 
-        } else if (message[0].equals("SIC OK")) {
+        } else if (message[0].equals("SIC OK")) { // soukroma zprava
+            
+            String sender = message[1];
             
             System.out.format("niggersjewsci ");
-            System.out.format(message[1]);
+            System.out.format(sender);
             
+            // show upozorneni u pritele
+            bean.getFriendsList().notifyOnFriend(sender, true);
+
             if (docs.containsKey(message[1])) {
 
                 // okno je vytvore
-                StyledDocument per = (StyledDocument) docs.get(message[1]);
+                StyledDocument per = (StyledDocument) docs.get(sender);
                 printer(message[2], per);
-                //   per.insertString(per.getLength(),message[2], null); 
-            
-            
+                //   per.insertString(per.getLength(),message[2], null);
+                
             } else {
                 
-                // prijde soukroma sprava 
-                pm mes = new pm(message[1], login); //mesaage[1] sender
+                pm mes = new pm(bean, sender, login); //mesaage[1] sender
+                
                 mes.pipes(username, read, write);
-                docs.put(message[1], mes.docs());
-                pms.put(message[1], mes);
-                StyledDocument per = (StyledDocument) docs.get(message[1]);
+                docs.put(sender, mes.docs());
+                pms.put(sender, mes);
+                StyledDocument per = (StyledDocument) docs.get(sender);
                 printer(message[2], per);
                 // per.insertString(per.getLength(),message[2], null); 
             }
@@ -314,7 +318,23 @@ public class parser {
         pms.put(user, mes);
     }
     
+    public boolean isPnExists(String name) {
+        return docs.containsKey(name);
+    }
     
+    public pm getPmFrame(String name) {
+        if (isPnExists(name)) {
+            return (pm) pms.get(name);
+        }
+        return null;
+    }
+    
+    public void deltePmFrame(String name) {
+        if (isPnExists(name)) {
+            docs.remove(name);
+            pms.remove(name);
+        }
+    }
     
 }
 

@@ -11,6 +11,12 @@ import java.awt.Image;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.FocusEvent;
+import java.awt.event.FocusListener;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowFocusListener;
+import java.awt.event.WindowListener;
+import java.awt.event.WindowStateListener;
 import java.awt.image.BufferedImage;
 import java.io.BufferedReader;
 import java.io.File;
@@ -41,8 +47,13 @@ import static jdk.nashorn.internal.objects.NativeDebug.getClass;
  *
  * @author christian
  */
-public class pm extends javax.swing.JFrame implements ActionListener {
+public class pm extends javax.swing.JFrame implements ActionListener, FocusListener,  WindowListener,
+                                            WindowFocusListener,
+                                            WindowStateListener  {
 
+    ClientBean bean;
+    
+    
     String username, address = "localhost";
     ArrayList<String> users = new ArrayList();
     Boolean isConnected = false;
@@ -72,11 +83,17 @@ public class pm extends javax.swing.JFrame implements ActionListener {
     String login;
     String nm;
 
-    public pm(String name, String l) throws IOException {
+    public pm(ClientBean bean, String name, String l) throws IOException {
+        
+        this.bean = bean;
+        
         setSize(800, 400);
         setLayout(null);
 
-        setVisible(true);
+        // Viditelnost je ze zacatku fallse, nechceme ho hnedka videt
+        setVisible(false);
+        
+        
 
         login = l;
         nm = name;
@@ -170,4 +187,70 @@ public class pm extends javax.swing.JFrame implements ActionListener {
 
     }
 
+    @Override
+    public void focusGained(FocusEvent e) {
+        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        // Zrusni upozorneni u naseho
+        bean.getFriendsList().notifyOnFriend(nm, false);
+    }
+
+    @Override
+    public void focusLost(FocusEvent e) {
+        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void windowOpened(WindowEvent e) {
+        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void windowClosing(WindowEvent e) {
+        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void windowClosed(WindowEvent e) {
+        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        bean.getParser().deltePmFrame(nm);
+    }
+
+    @Override
+    public void windowIconified(WindowEvent e) {
+        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void windowDeiconified(WindowEvent e) {
+        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void windowActivated(WindowEvent e) {
+        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void windowDeactivated(WindowEvent e) {
+        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void windowGainedFocus(WindowEvent e) {
+        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void windowLostFocus(WindowEvent e) {
+        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void windowStateChanged(WindowEvent e) {
+        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    
+    
+    
 }

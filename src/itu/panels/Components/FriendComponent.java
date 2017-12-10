@@ -27,13 +27,26 @@ public class FriendComponent extends javax.swing.JPanel  implements MouseListene
 
     private String name;
     private ClientBean bean;
+    private boolean notified;
     
     public FriendComponent(String name, ClientBean bean) {
         super();
         this.name = name;
         this.bean = bean;
+        notified = false;
         
         initComponents();
+    }
+    
+    
+    public boolean hasName(String inName) {
+        return name.equalsIgnoreCase(inName.trim());
+    }
+    
+    public void setStateNotify(boolean state) {
+        notified = state;
+        
+        System.out.println(name+" is notified: "+state);
     }
     
     /**
@@ -61,16 +74,27 @@ public class FriendComponent extends javax.swing.JPanel  implements MouseListene
         //JOptionPane.showMessageDialog(null, "Show chat for user: "+name, "Clicked", JOptionPane.INFORMATION_MESSAGE);
         
         // todo open window with private chat
-        pm mes; 
-        try {
-            mes = new pm(name, bean.getConnection().getLogin()); //mesaage[1] sender
-            
-            mes.pipes(bean.getConnection().getLogin(), bean.getParser().getRead(), bean.getParser().getWrite());
-            bean.getParser().addToDocs(name, mes);
-            bean.getParser().addToPms(name, mes);
-        } catch (IOException ex) {
-            Logger.getLogger(FriendComponent.class.getName()).log(Level.SEVERE, null, ex);
+        
+        // existuje uz okno
+        if (bean.getParser().isPnExists(name)) {
+            bean.getParser().getPmFrame(name).setVisible(true);
         }
+        else {
+            pm mes; 
+            try {
+                mes = new pm(bean, name, bean.getConnection().getLogin()); //mesaage[1] sender
+
+                mes.pipes(bean.getConnection().getLogin(), bean.getParser().getRead(), bean.getParser().getWrite());
+                bean.getParser().addToDocs(name, mes);
+                bean.getParser().addToPms(name, mes);
+                
+                mes.setVisible(true);
+                
+            } catch (IOException ex) {
+                Logger.getLogger(FriendComponent.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        
     }
 
     @Override

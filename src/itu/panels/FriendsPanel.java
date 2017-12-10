@@ -40,11 +40,16 @@ public class FriendsPanel extends javax.swing.JPanel {
     private JPanel scrollPanel;
     private JTextField searchTextField;
     private ArrayList<String> people;
+    private ArrayList<String> notficatedPeople;
+    
+    private ArrayList<FriendComponent> friends;
    
     
     public FriendsPanel(ClientBean bean) {
         super();
         people = new ArrayList();
+        friends = new ArrayList();
+        notficatedPeople = new ArrayList();
         this.bean = bean;
         
         initComponents();
@@ -107,14 +112,21 @@ public class FriendsPanel extends javax.swing.JPanel {
     private void paintFriends() {
         
         scrollPanel.removeAll();
+        friends.clear();
         
         for (int i = 0; i < getNumberOfPeople(); i++) {
             
             // todo NAME
-            JPanel pnIn = new FriendComponent(getNameOf(i), bean);
+            FriendComponent pnIn = new FriendComponent(getNameOf(i), bean);
             pnIn.setBounds(0, i*60, ((int) sirka), 60);
             
+            friends.add(pnIn);
             scrollPanel.add(pnIn);
+            
+            // notifikace
+            if (notficatedPeople.indexOf(getNameOf(i)) > 0) {
+                pnIn.setStateNotify(true);
+            }
         }
         
         if (people.size() == 0) {
@@ -160,6 +172,41 @@ public class FriendsPanel extends javax.swing.JPanel {
             }
             
             paintFriends(); // Znovu vykresleni
+        }
+    }
+    
+    public FriendComponent getFriendComponent(String name) {
+        
+        
+        for (FriendComponent friend: friends) {
+            if (friend.hasName(name))
+                return friend;
+        }
+        
+        return null;
+    }
+    
+    
+    /**
+     * Prida notifikaci k pritelove
+     */
+    public void notifyOnFriend(String name, boolean state) {
+        
+        FriendComponent friend = getFriendComponent(name);
+        
+        if (friend != null) {
+            friend.setStateNotify(state);
+        }
+        
+        // add nofifikaci
+        if (state) {
+            // zapamatujeme si
+            notficatedPeople.add(name);
+        }
+        // delete notifikaci
+        else {
+            // oddelame 
+            notficatedPeople.remove(name);
         }
     }
 }
