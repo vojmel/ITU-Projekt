@@ -285,14 +285,15 @@ public class Connection {
         String[] message;
         login = log;
         pan.setName(login);
+        par.setName(login);
        
         
         // neni connection
         if ( ! connection) {
             // connect
             try {
-                //sock = new Socket("147.229.216.205", 21201);
-                sock = new Socket("12.12.12.6", 21201);
+                sock = new Socket("147.229.216.205", 21201);
+                //sock = new Socket("12.12.12.6", 21201);
                 //sock = new Socket("62.245.118.128", 21201);
                 //sock.setSoTimeout(10000);
                 InputStreamReader streamreader = new InputStreamReader(sock.getInputStream());
