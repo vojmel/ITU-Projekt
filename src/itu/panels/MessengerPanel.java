@@ -88,7 +88,7 @@ public class MessengerPanel extends javax.swing.JPanel implements ActionListener
     JTextField Send_text_field;
     String login;
     String nm ="";
-    
+     private JScrollPane scrollPane;
     
     javax.swing.JPanel content;
     
@@ -117,10 +117,16 @@ public class MessengerPanel extends javax.swing.JPanel implements ActionListener
         chat_space = new JTextPane();
         chat_space.setSize(200, 400);
         scroll2 = new JScrollPane(chat_space);
-        scroll2.setBounds(200, 200, 10, 10);
+        scroll2.setBounds(10, 1, 690, 699);
+        
+       chat_space.setBorder(BorderFactory.createMatteBorder(0, 0, 0, 0, new Color(204, 204, 204)));
+       scroll2.setBorder(BorderFactory.createMatteBorder(0, 0, 0, 0, new Color(204, 204, 204)));
+        	
         //chat_space.setBackground(Color.red);
-        chat_space.setBounds(20, 20, 670, 670);
-        add(chat_space);
+       // chat_space.setBounds(20, 20, 670, 670);
+        //add(chat_space);
+        add(scroll2);
+        
         
 
         
@@ -227,8 +233,11 @@ public class MessengerPanel extends javax.swing.JPanel implements ActionListener
         
         // Zprava
         if (mode == 1)
-           doc.insertString(doc.getLength(), prt, messageStyle);
-
+        {
+            doc.insertString(doc.getLength(), prt, messageStyle);
+            chat_space.setCaretPosition(chat_space.getDocument().getLength());
+        }
+          
         // smile
         else if (mode == 2) {
 
@@ -280,12 +289,14 @@ public class MessengerPanel extends javax.swing.JPanel implements ActionListener
         if (e.getSource() == send) {
             String empty = "";
             if ((Send_text_field.getText()).equals(empty)) {
+               // write.println("MUC " + login + " /r/n " + "pfff");
                 Send_text_field.setText("");
                 Send_text_field.requestFocus();
             } else {
                 try {
                     
-                    write.println("MUC " + login + " /r/n " + Send_text_field.getText());
+                     write.println("MUC " + login + " /r/n " + Send_text_field.getText());
+                   //  write.println("MUC " + login + " /r/n " + "pfff");
                    
                     write.flush();
                     Send_text_field.setText("");
@@ -302,8 +313,10 @@ public class MessengerPanel extends javax.swing.JPanel implements ActionListener
             Send_text_field.requestFocus();
         } else if (e.getSource() == smiley) {
 
+
             try {
-                smileys field = new smileys(write, "SIC " + login + " " + nm + " /r/n ");
+                smileys field = new smileys(write, "MUC " + login + " /r/n ");
+                    
                 field.setVisible(true);
 
             } catch (IOException ex) {

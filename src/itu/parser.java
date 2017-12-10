@@ -48,9 +48,9 @@ public class parser {
 
     String path = System.getProperty("user.dir");
     URL url = getClass().getResource(path);
-    Image image = Toolkit.getDefaultToolkit().getImage("src/itu/1.png");
-    Image image1 = Toolkit.getDefaultToolkit().getImage("src/itu/2.png");
-    Image image2 = Toolkit.getDefaultToolkit().getImage("src/itu/3.png");
+    Image image = Toolkit.getDefaultToolkit().getImage("src/itu/1.jpg");
+    Image image1 = Toolkit.getDefaultToolkit().getImage("src/itu/1.jpg");
+    Image image2 = Toolkit.getDefaultToolkit().getImage("src/itu/1.jpg");
     Image image3 = Toolkit.getDefaultToolkit().getImage("src/itu/4.png");
     Image image4 = Toolkit.getDefaultToolkit().getImage("src/itu/5.png");
     Image image5 = Toolkit.getDefaultToolkit().getImage("src/itu/6.png");

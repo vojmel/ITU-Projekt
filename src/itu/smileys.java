@@ -97,27 +97,33 @@ public class smileys extends JFrame implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == smiley1) {
             write.println(type + "Sx(fun)");
-            System.out.format("niggers1");
+            write.flush();
+            System.out.format(type + "Sx(fun)");
             dispatchEvent(new WindowEvent(this, WindowEvent.WINDOW_CLOSING));
         } else if (e.getSource() == smiley) {
             write.println(type + "Sx(1)");
+            write.flush();
             System.out.format("niggers");
             dispatchEvent(new WindowEvent(this, WindowEvent.WINDOW_CLOSING));
         } else if (e.getSource() == smiley2) {
             write.println(type + "Sx(2)");
+            write.flush();
             System.out.format("niggers2");
             dispatchEvent(new WindowEvent(this, WindowEvent.WINDOW_CLOSING));
         } else if (e.getSource() == smiley3) {
             write.println(type + "Sx(3)");
+            write.flush();
             System.out.format("niggers3");
             dispatchEvent(new WindowEvent(this, WindowEvent.WINDOW_CLOSING));
         } else if (e.getSource() == smiley4) {
             write.println(type + "Sx(4)");
+            write.flush();
             System.out.format("niggers4");
             dispatchEvent(new WindowEvent(this, WindowEvent.WINDOW_CLOSING));
 
         } else if (e.getSource() == smiley5) {
             write.println(type + "Sx(5)");
+            write.flush();
             System.out.format("niggers5");
             dispatchEvent(new WindowEvent(this, WindowEvent.WINDOW_CLOSING));
         }
