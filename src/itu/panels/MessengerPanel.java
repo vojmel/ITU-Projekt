@@ -217,15 +217,6 @@ public class MessengerPanel extends javax.swing.JPanel implements ActionListener
         
     }
     
-    private static BufferedImage resizeImage(BufferedImage originalImage, int type){
-	BufferedImage resizedImage = new BufferedImage(30, 30, type);
-	Graphics2D g = resizedImage.createGraphics();
-	g.drawImage(originalImage, 0, 0, 30, 30, null);
-	g.dispose();
-
-	return resizedImage;
-    }
-    
     //
     // Pokud dojde od serveru nessage tak se zavola tato funkce
     //

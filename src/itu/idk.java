@@ -5,6 +5,7 @@
  */
 package itu;
 
+import itu.panels.pm;
 import java.awt.Color;
 import java.awt.Container;
 import java.awt.Dimension;
@@ -729,14 +730,9 @@ public class idk extends JFrame implements ActionListener, WindowListener,
                     if (docs.containsKey(b.getText())) {
 
                     } else {
-                        try {
-                            pm mes = new pm(null, b.getText(), login);
-                            mes.pipes(username, read, write);
-                            docs.put(b.getText(), mes.docs());
-
-                        } catch (IOException ex) {
-                            Logger.getLogger(idk.class.getName()).log(Level.SEVERE, null, ex);
-                        }
+                        pm mes = new pm(null, b.getText(), login);
+                        mes.pipes(username, read, write);
+                        docs.put(b.getText(), mes.docs());
                     }
                 }
 

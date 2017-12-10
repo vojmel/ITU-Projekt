@@ -351,6 +351,10 @@ public class Connection {
                 }
                 else if (ans.equals("LOG: ERR ussername or password incorect. Failed !")) {
                     return -6;
+                }
+                else if (ans.equals("LOG: ERR Already logged in. Failed !")) {
+                    
+                    return -7;
                 }else {
                     return 0;
                 }
