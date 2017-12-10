@@ -10,6 +10,7 @@ package itu;
 import itu.panels.RegistrationPanel;
 import itu.panels.MessengerPanel;
 import itu.panels.LoginPanel;
+import itu.panels.pm;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
@@ -19,6 +20,9 @@ import java.awt.event.WindowEvent;
 import java.awt.event.WindowFocusListener;
 import java.awt.event.WindowListener;
 import java.awt.event.WindowStateListener;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
@@ -42,6 +46,7 @@ public class ClientFrame extends JFrame  implements WindowListener,
         
         showLogin();
         //showMessenger();
+        
     }
     
     private void initComponents() {

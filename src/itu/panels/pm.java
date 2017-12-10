@@ -3,8 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package itu;
+package itu.panels;
 
+import itu.ClientBean;
+import itu.HintTextFieldUI;
+import itu.idk;
+import itu.smileys;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Image;
@@ -28,6 +32,7 @@ import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.imageio.ImageIO;
+import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -82,12 +87,23 @@ public class pm extends javax.swing.JFrame implements ActionListener, FocusListe
 
     String login;
     String nm;
+    
+    
+    SimpleAttributeSet messageStyle;
+    SimpleAttributeSet senderStyle;
+    SimpleAttributeSet senderMe;
+    
+    JScrollPane scroll2;
+    
+    
+    javax.swing.JPanel content;
 
-    public pm(ClientBean bean, String name, String l) throws IOException {
+    public pm(ClientBean bean, String name, String l) {
         
         this.bean = bean;
         
-        setSize(800, 400);
+        setSize(800, 600);
+        setResizable(false);
         setLayout(null);
 
         // Viditelnost je ze zacatku fallse, nechceme ho hnedka videt
@@ -97,6 +113,10 @@ public class pm extends javax.swing.JFrame implements ActionListener, FocusListe
 
         login = l;
         nm = name;
+        
+        this.setTitle("Chat with: "+nm);
+        
+        /*
         friends = new JLabel(name);
         Send_text_field = new JTextField();
         //chat_space = new JTextArea();
@@ -128,13 +148,115 @@ public class pm extends javax.swing.JFrame implements ActionListener, FocusListe
 
                   //  ListenThread();
         this.repaint();
+        */
         
+        initComponents();
         
         // set listeners
         addWindowListener(this);
         addWindowFocusListener(this);
         addWindowStateListener(this);
     }
+    
+    
+    private void initComponents() {
+        this.setLayout(null);
+        this.setBackground(Color.red);
+        
+        content = new JPanel();
+        content.setLayout(null);
+        content.setBounds(0, 0, 800, 600);
+        content.setBackground(Color.white);
+        this.add(content);
+        
+        // chat okno
+        chat_space = new JTextPane();
+        chat_space.setSize(200, 400);
+        scroll2 = new JScrollPane(chat_space);
+        scroll2.setBounds(200, 200, 10, 10);
+        //chat_space.setBackground(Color.red);
+        chat_space.setBounds(20, 20, 770, 470);
+        content.add(chat_space);
+        
+
+        
+        doc = chat_space.getStyledDocument();
+        chat_space.setEditable(false);
+        
+        style = doc.addStyle("StyleName", null);
+        
+	
+        
+        // Odesilate style
+        senderStyle = new SimpleAttributeSet();
+        StyleConstants.setLeftIndent(senderStyle, 20);
+        StyleConstants.setFirstLineIndent(senderStyle, -20);
+        StyleConstants.setForeground(senderStyle, new Color(150, 150, 150));
+        StyleConstants.setFontSize(senderStyle, 15);
+        
+        senderMe = new SimpleAttributeSet();
+        StyleConstants.setLeftIndent(senderMe, 20);
+        StyleConstants.setFirstLineIndent(senderMe, -20);
+        StyleConstants.setForeground(senderMe, new Color(150, 150, 150));
+        StyleConstants.setFontSize(senderMe, 15);
+        
+        // Message style
+        messageStyle = new SimpleAttributeSet();
+        StyleConstants.setLeftIndent(messageStyle, 20);
+        StyleConstants.setFirstLineIndent(messageStyle, -20);
+        StyleConstants.setForeground(messageStyle, Color.black);
+        StyleConstants.setFontSize(senderStyle, 18);
+        
+        
+        
+        
+        
+        // Message
+        JPanel obalMessage = new JPanel();
+        obalMessage.setLayout(null);
+        obalMessage.setBounds(0, 470+20, 800, 60);
+        obalMessage.setBorder(BorderFactory.createMatteBorder(1, 0, 0, 0, new Color(204, 204, 204)));
+        obalMessage.setBackground(Color.white);
+        
+        Send_text_field = new JTextField();
+        Send_text_field.setBounds(20, 2, 500, 60);
+        Send_text_field.setBorder(BorderFactory.createMatteBorder(0, 0, 0, 0, new Color(204, 204, 204)));
+        Send_text_field.setBackground(Color.white);
+        
+        Send_text_field.setUI(new HintTextFieldUI("Write message", false, new Color(150, 150, 150)));
+  
+        obalMessage.add(Send_text_field);
+        
+        // Smile btn
+        smiley = new JButton("");
+        smiley.setBounds(620, 18, 31, 32);
+        smiley.setBorder(BorderFactory.createMatteBorder(0, 0, 0, 0, new Color(204, 204, 204)));
+        smiley.setBackground(Color.white);
+        smiley.addActionListener(this);
+        try {
+            BufferedImage originalImage = ImageIO.read(getClass().getResource("t.png"));
+            //int type = originalImage.getType() == 0? BufferedImage.TYPE_INT_ARGB : originalImage.getType();
+            //BufferedImage resizeImagePng = resizeImage(originalImage, type);
+            smiley.setIcon(new ImageIcon(originalImage));
+        } catch (Exception ex) {
+            System.out.println(ex);
+        }
+        obalMessage.add(smiley);
+        
+        // Send btn
+        send = new JButton("Send message");
+        send.setBorder(BorderFactory.createMatteBorder(0, 0, 0, 0, new Color(204, 204, 204)));
+        send.setBounds(670, 18, 100, 30);
+        send.setBackground(Color.white);
+        send.setForeground(new Color(102, 163, 255));
+        send.addActionListener(this);
+        obalMessage.add(send);
+        
+        content.add(obalMessage);
+    }
+    
+    
+    
 
     public void paintComponent(Graphics g) {
         paintComponent(g);

@@ -14,6 +14,8 @@ import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.Image;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
@@ -24,6 +26,8 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 import javax.swing.ScrollPaneConstants;
 import javax.swing.border.LineBorder;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
 import javax.swing.text.BadLocationException;
 import javax.swing.text.StyleConstants;
 
@@ -83,6 +87,21 @@ public class FriendsPanel extends javax.swing.JPanel {
         searchTextField.setUI(new HintTextFieldUI("   Search", false, new Color(150, 150, 150)));
         search.add(searchTextField);
         
+        searchTextField.getDocument().addDocumentListener(new DocumentListener() {
+
+            public void removeUpdate(DocumentEvent e) {
+                filterUpload();
+            }
+
+            public void insertUpdate(DocumentEvent e) {
+                filterUpload();
+            }
+
+            public void changedUpdate(DocumentEvent e) {
+                filterUpload();
+            }
+        });
+        
         
         
         // Panel pro pratele
@@ -104,6 +123,58 @@ public class FriendsPanel extends javax.swing.JPanel {
         
        
         add(scrollPane);
+    }
+    
+    
+    public void clearFilter() {
+        
+        searchTextField.setText("");
+        filterUpload();
+    }
+    
+    public void filterUpload() {
+        System.out.println("uplod");
+        
+        String text = searchTextField.getText().trim();
+        boolean found = false;
+        
+        // no search
+        if (text.length() < 1) {
+            paintFriends();
+            return;
+        }
+        
+        if ( ! text.equalsIgnoreCase("Search")) {
+            
+            scrollPanel.removeAll();
+            for (int i = 0; i < getNumberOfPeople(); i++) {
+
+                FriendComponent pnIn = friends.get(i);
+                
+                // Je podobne jmeno?
+                if (pnIn.nameContains(text)) {
+                    
+                    found = true;
+                    scrollPanel.add(pnIn);
+
+                    // notifikace
+                    if (notficatedPeople.indexOf(getNameOf(i)) > 0) {
+                        pnIn.setStateNotify(true);
+                    }
+                }
+            }
+
+            if ( ! found) {
+                // show no logg users
+                JLabel msg = new JLabel("No one found");
+                msg.setBounds(100, 0, 300, 100);
+                scrollPanel.add(msg);
+            }
+
+            scrollPanel.repaint();
+            
+            
+        }
     }
     
     /**

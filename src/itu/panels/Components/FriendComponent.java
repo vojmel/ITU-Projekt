@@ -1,15 +1,18 @@
 package itu.panels.Components;
 
 import itu.ClientBean;
-import itu.pm;
+import itu.panels.pm;
 import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.Image;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.awt.image.BufferedImage;
+import java.io.File;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -29,6 +32,8 @@ public class FriendComponent extends javax.swing.JPanel  implements MouseListene
     private ClientBean bean;
     private boolean notified;
     
+    private JLabel dot;
+    
     public FriendComponent(String name, ClientBean bean) {
         super();
         this.name = name;
@@ -43,6 +48,10 @@ public class FriendComponent extends javax.swing.JPanel  implements MouseListene
         return name.equalsIgnoreCase(inName.trim());
     }
     
+    public boolean nameContains(String test) {
+        return name.contains(test);
+    }
+    
     public void setStateNotify(boolean state) {
         notified = state;
         
@@ -51,10 +60,7 @@ public class FriendComponent extends javax.swing.JPanel  implements MouseListene
     
     private void updateByState() {
         
-        this.setBackground(Color.white);
-        if (this.notified) {
-            this.setBackground(Color.red);
-        }
+        dot.setVisible(notified);
     }
     
     /**
@@ -76,6 +82,19 @@ public class FriendComponent extends javax.swing.JPanel  implements MouseListene
         
         this.add(friendNameText);
         
+        // Dot notifikace
+        try {
+            BufferedImage originalImage = ImageIO.read(getClass().getResource("dot.png"));
+            
+            dot = new JLabel(new ImageIcon(originalImage));
+            dot.setBounds(240, 20, 16, 15);
+            dot.setVisible(false);
+            
+            add(dot);
+        } catch (IOException ex) {
+            //Logger.getLogger(FriendComponent.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
         updateByState();
     }
 
@@ -91,18 +110,13 @@ public class FriendComponent extends javax.swing.JPanel  implements MouseListene
         }
         else {
             pm mes; 
-            try {
-                mes = new pm(bean, name, bean.getConnection().getLogin()); //mesaage[1] sender
+            mes = new pm(bean, name, bean.getConnection().getLogin()); //mesaage[1] sender
 
-                mes.pipes(bean.getConnection().getLogin(), bean.getParser().getRead(), bean.getParser().getWrite());
-                bean.getParser().addToDocs(name, mes);
-                bean.getParser().addToPms(name, mes);
-                
-                mes.setVisible(true);
-                
-            } catch (IOException ex) {
-                Logger.getLogger(FriendComponent.class.getName()).log(Level.SEVERE, null, ex);
-            }
+            mes.pipes(bean.getConnection().getLogin(), bean.getParser().getRead(), bean.getParser().getWrite());
+            bean.getParser().addToDocs(name, mes);
+            bean.getParser().addToPms(name, mes);
+
+            mes.setVisible(true);
         }
         
     }

@@ -168,6 +168,10 @@ public class LoginPanel extends javax.swing.JPanel {
                     
                     showErrorMessage("Wrong login or password");
                 }
+                else if (res == -7) {
+                    
+                    showErrorMessage("Already log in.");
+                }
                 else 
                 {
                     showErrorMessage("Cant log in");

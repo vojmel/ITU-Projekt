@@ -5,7 +5,9 @@
  */
 package itu;
 
+import itu.panels.pm;
 import itu.panels.MessengerPanel;
+import java.awt.Color;
 import java.awt.Image;
 import java.awt.Toolkit;
 import java.io.BufferedReader;
@@ -54,12 +56,37 @@ public class parser {
     Image image3 = Toolkit.getDefaultToolkit().getImage("src/itu/4.png");
     Image image4 = Toolkit.getDefaultToolkit().getImage("src/itu/5.png");
     Image image5 = Toolkit.getDefaultToolkit().getImage("src/itu/6.png");
+    
+    
+    SimpleAttributeSet messageStyle;
+    SimpleAttributeSet senderStyle;
+    SimpleAttributeSet senderMe;
 
     public parser(ClientBean bean) {
 
         this.bean = bean;
         pan = bean.getMessenger();
         bean.setParser(this);
+        
+        // Odesilate style
+        senderStyle = new SimpleAttributeSet();
+        StyleConstants.setLeftIndent(senderStyle, 20);
+        StyleConstants.setFirstLineIndent(senderStyle, -20);
+        StyleConstants.setForeground(senderStyle, new Color(150, 150, 150));
+        StyleConstants.setFontSize(senderStyle, 15);
+        
+        senderMe = new SimpleAttributeSet();
+        StyleConstants.setLeftIndent(senderMe, 20);
+        StyleConstants.setFirstLineIndent(senderMe, -20);
+        StyleConstants.setForeground(senderMe, new Color(150, 150, 150));
+        StyleConstants.setFontSize(senderMe, 15);
+        
+        // Message style
+        messageStyle = new SimpleAttributeSet();
+        StyleConstants.setLeftIndent(messageStyle, 20);
+        StyleConstants.setFirstLineIndent(messageStyle, -20);
+        StyleConstants.setForeground(messageStyle, Color.black);
+        StyleConstants.setFontSize(senderStyle, 18);
     }
     
     public void setName(String log)
@@ -68,6 +95,10 @@ public class parser {
     }
 
     public void printer(String message, StyledDocument docu, String who) throws BadLocationException {
+        
+        // todo Stylovani
+        
+        
         ArrayList<Integer> store = new ArrayList();
         ArrayList<Integer> store1 = new ArrayList();
         ArrayList<Integer> store2 = new ArrayList();
