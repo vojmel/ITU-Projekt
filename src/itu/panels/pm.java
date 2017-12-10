@@ -173,10 +173,12 @@ public class pm extends javax.swing.JFrame implements ActionListener, FocusListe
         chat_space = new JTextPane();
         chat_space.setSize(200, 400);
         scroll2 = new JScrollPane(chat_space);
-        scroll2.setBounds(200, 200, 10, 10);
+        scroll2.setBounds(20, 20, 770, 470);
         //chat_space.setBackground(Color.red);
-        chat_space.setBounds(20, 20, 770, 470);
-        content.add(chat_space);
+       // chat_space.setBounds(20, 20, 770, 470);
+        scroll2.setBorder(BorderFactory.createMatteBorder(0, 0, 0, 0, new Color(204, 204, 204)));
+        content.add(scroll2);
+       // content.add(chat_space);
         
 
         
@@ -255,6 +257,32 @@ public class pm extends javax.swing.JFrame implements ActionListener, FocusListe
         content.add(obalMessage);
     }
     
+    public Style st()
+    {
+        return style;
+    }
+    
+    public JTextPane chat()
+    {
+        return chat_space;
+    }
+    
+     public void smileyShow(String prt,  Image image) throws BadLocationException {
+        
+     
+           
+
+     
+
+            
+                
+                doc.insertString(doc.getLength(), login, senderMe);
+               
+                StyleConstants.setIcon(style, new ImageIcon(image));
+                doc.insertString(doc.getLength(), "ignoring", style); 
+                doc.insertString(doc.getLength(), "\n ", senderMe);
+    }
+    
     
     
 
@@ -288,7 +316,8 @@ public class pm extends javax.swing.JFrame implements ActionListener, FocusListe
                 try {
 
                     write.println("SIC " + login + " " + nm + " /r/n " + Send_text_field.getText());
-                    doc.insertString(doc.getLength(),login + " " + Send_text_field.getText() + "\n", null);
+                    doc.insertString(doc.getLength(),login + " " + Send_text_field.getText() + "\n", senderMe);
+                     chat_space.setCaretPosition(chat_space.getDocument().getLength());
                     write.flush();
                     Send_text_field.setText("");
 
@@ -305,7 +334,7 @@ public class pm extends javax.swing.JFrame implements ActionListener, FocusListe
         } else if (e.getSource() == smiley) {
 
             try {
-                smileys field = new smileys(write, "SIC " + login + " " + nm + " /r/n ");
+                smileys field = new smileys(write, "SIC " + login + " " + nm + " /r/n ",this,2);
                 field.setVisible(true);
 
             } catch (IOException ex) {

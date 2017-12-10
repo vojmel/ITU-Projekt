@@ -306,7 +306,7 @@ public class MessengerPanel extends javax.swing.JPanel implements ActionListener
 
 
             try {
-                smileys field = new smileys(write, "MUC " + login + " /r/n ");
+                smileys field = new smileys(write, "MUC " + login + " /r/n ",null,1);
                     
                 field.setVisible(true);
 

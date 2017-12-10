@@ -704,7 +704,7 @@ public class idk extends JFrame implements ActionListener, WindowListener,
                  chat_space.setText("niggers")*/
 
                 try {
-                    smileys field = new smileys(write, "MUC " + login + " /r/n ");
+                    smileys field = new smileys(write, "MUC " + login + " /r/n ",null,1);
                     field.setVisible(true);
 
                 } catch (IOException ex) {

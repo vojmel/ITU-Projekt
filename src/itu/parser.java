@@ -20,6 +20,7 @@ import java.util.List;
 import java.util.Map;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JTextPane;
 import javax.swing.text.BadLocationException;
 import javax.swing.text.SimpleAttributeSet;
 import javax.swing.text.Style;
@@ -47,12 +48,13 @@ public class parser {
     BufferedReader read;
     PrintWriter write;
     String login;
+    JTextPane chat_space;
 
     String path = System.getProperty("user.dir");
     URL url = getClass().getResource(path);
-    Image image = Toolkit.getDefaultToolkit().getImage("src/itu/1.jpg");
-    Image image1 = Toolkit.getDefaultToolkit().getImage("src/itu/1.jpg");
-    Image image2 = Toolkit.getDefaultToolkit().getImage("src/itu/1.jpg");
+    Image image = Toolkit.getDefaultToolkit().getImage("src/itu/1.png");
+    Image image1 = Toolkit.getDefaultToolkit().getImage("src/itu/2.png");
+    Image image2 = Toolkit.getDefaultToolkit().getImage("src/itu/3.png");
     Image image3 = Toolkit.getDefaultToolkit().getImage("src/itu/4.png");
     Image image4 = Toolkit.getDefaultToolkit().getImage("src/itu/5.png");
     Image image5 = Toolkit.getDefaultToolkit().getImage("src/itu/6.png");
@@ -67,6 +69,7 @@ public class parser {
         this.bean = bean;
         pan = bean.getMessenger();
         bean.setParser(this);
+       // style = doc.addStyle("StyleName", null);
         
         // Odesilate style
         senderStyle = new SimpleAttributeSet();
@@ -94,7 +97,7 @@ public class parser {
         login = log;
     }
 
-    public void printer(String message, StyledDocument docu, String who) throws BadLocationException {
+    public void printer(String message, StyledDocument docu, String who, String log) throws BadLocationException {
         
         // todo Stylovani
         
@@ -131,8 +134,14 @@ public class parser {
                 store5.add(i);
             }
         }
-       
-        docu.insertString(docu.getLength(), who, null);
+        System.out.format("we cool chat");
+        System.out.format(message);
+        docu.insertString(docu.getLength(), who, senderStyle);
+        pm mypm = (pm) pms.get(who);
+        style = mypm.st();
+        chat_space = mypm.chat();
+        chat_space.setCaretPosition(chat_space.getDocument().getLength());
+        
         for (int i = 0; i < message.length(); i++) {
             String prt = "" + message.charAt(i);
             if (store.contains(i)) // nahradi retezec smajlikem
@@ -142,6 +151,8 @@ public class parser {
                 StyleConstants.setIcon(style, new ImageIcon(image));
                 docu.insertString(docu.getLength(), "ignoring", style);
                 store.clear();
+                 System.out.format("wwhatsss");
+               
             } else if (store1.contains(i)) {
 
                 i = i + 7;
@@ -173,7 +184,7 @@ public class parser {
                 docu.insertString(docu.getLength(), "ignoring", style);
                 store5.clear();
             } else {
-                docu.insertString(docu.getLength(), prt, null);
+                docu.insertString(docu.getLength(), prt, messageStyle);
             }
             
         }
@@ -313,7 +324,7 @@ public class parser {
 
                 // okno je vytvore
                 StyledDocument per = (StyledDocument) docs.get(sender);
-                printer(message[2], per, sender);
+                printer(message[2], per, sender,login);
                 //   per.insertString(per.getLength(),message[2], null);
                 
             } else {
@@ -324,7 +335,7 @@ public class parser {
                 docs.put(sender, mes.docs());
                 pms.put(sender, mes);
                 StyledDocument per = (StyledDocument) docs.get(sender);
-                printer(message[2], per, sender);
+                printer(message[2], per, sender,login);
                 // per.insertString(per.getLength(),message[2], null); 
             }
 
