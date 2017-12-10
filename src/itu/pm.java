@@ -127,7 +127,7 @@ public class pm extends javax.swing.JFrame implements ActionListener, FocusListe
         this.add(scroll);
 
                   //  ListenThread();
-        // this.repaint();
+        this.repaint();
     }
 
     public void paintComponent(Graphics g) {
@@ -160,6 +160,7 @@ public class pm extends javax.swing.JFrame implements ActionListener, FocusListe
                 try {
 
                     write.println("SIC " + login + " " + nm + " /r/n " + Send_text_field.getText());
+                    doc.insertString(doc.getLength(),login + " " + Send_text_field.getText() + "\n", null);
                     write.flush();
                     Send_text_field.setText("");
 

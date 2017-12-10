@@ -61,8 +61,13 @@ public class parser {
         pan = bean.getMessenger();
         bean.setParser(this);
     }
+    
+    public void setName(String log)
+    {
+        login = log;
+    }
 
-    public void printer(String message, StyledDocument docu) throws BadLocationException {
+    public void printer(String message, StyledDocument docu, String who) throws BadLocationException {
         ArrayList<Integer> store = new ArrayList();
         ArrayList<Integer> store1 = new ArrayList();
         ArrayList<Integer> store2 = new ArrayList();
@@ -95,7 +100,8 @@ public class parser {
                 store5.add(i);
             }
         }
-
+       
+        docu.insertString(docu.getLength(), who, null);
         for (int i = 0; i < message.length(); i++) {
             String prt = "" + message.charAt(i);
             if (store.contains(i)) // nahradi retezec smajlikem
@@ -138,7 +144,9 @@ public class parser {
             } else {
                 docu.insertString(docu.getLength(), prt, null);
             }
+            
         }
+        docu.insertString(docu.getLength(), "\n", null);
     }
 
     public void pipes(String user, BufferedReader rd, PrintWriter wd) {
