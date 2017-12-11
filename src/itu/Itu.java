@@ -23,14 +23,7 @@ public class Itu {
      */
     public static void main(String[] args) throws IOException {
 
-        /*Login log = new Login();
-        log.setVisible(true);
-        idk id = new idk();
-        id.setVisible(false);
-         // client cl = new client();
-        // log.get_client(cl);
-        log.get_clien(id);
-        //    id.setVisible(true);*/
+       
         
         ClientFrame frame = new ClientFrame();
         frame.show();

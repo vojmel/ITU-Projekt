@@ -341,34 +341,7 @@ public class client extends javax.swing.JFrame {
    {
         String ans;
        
-           /* try 
-            {
-                sock = new Socket("147.229.216.205", 21201);
-                InputStreamReader streamreader = new InputStreamReader(sock.getInputStream());
-                read = new BufferedReader(streamreader);
-                write = new PrintWriter(sock.getOutputStream());
-                //writer.println(anon + ":has connected.:Connect");
-                write.flush(); 
-                isConnected = true; 
-                write.println(username + ":" + Send_text_field.getText() + ":" + "Chat");
-                ans = read.readLine();
-                if (ans == "OK")
-                {
-                      ListenThread();
-                      return 1;
-                }
-                else
-                {
-                    return 0;
-                }
-              
-                 
-            } 
-            catch (Exception ex) 
-            { ListenThread();
-                ta_chat.append("Cannot Connect! Try Again. \n");
-                tf_username.setEditable(true);
-            }*/
+         
             return 2;
             
            
@@ -448,38 +421,18 @@ public class client extends javax.swing.JFrame {
         @Override
         public void run() 
         {
-            System.out.format("niggers");
+          
             String[] data;
             String stream, done = "Done", connect = "Connect", disconnect = "Disconnect", chat = "Chat";
 
             try 
             {
-                System.out.format("niggers");
+               
                 while ((stream = read.readLine()) != null) 
                 {
-                    System.out.format("niggers");
-                     //data = stream.split(":");
+                 
 
-                   /*  if (data[2].equals(chat)) 
-                     {
-                        ta_chat.append(data[0] + ": " + data[1] + "\n");
-                        ta_chat.setCaretPosition(ta_chat.getDocument().getLength());
-                     } 
-                     else if (data[2].equals(connect))
-                     {
-                        ta_chat.removeAll();
-                        userAdd(data[0]);
-                     } 
-                     else if (data[2].equals(disconnect)) 
-                     {
-                         userRemove(data[0]);
-                     } 
-                     else if (data[2].equals(done)) 
-                     {
-                        //users.setText("");
-                        writeUsers();
-                        users.clear();
-                     }*/
+                 
                      
                      
                          ta_chat.append("server: " + stream + "\n");

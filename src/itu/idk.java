@@ -699,9 +699,7 @@ public class idk extends JFrame implements ActionListener, WindowListener,
             try {
                 doc.insertString(doc.getLength(), "ignored text", style);
                 doc.insertString(doc.getLength(), "ignored text \n", null);
-                /*   chat_space.insertIcon(new ImageIcon(image));
-                 chat_space.setCaretPosition(50);
-                 chat_space.setText("niggers")*/
+          
 
                 try {
                     smileys field = new smileys(write, "MUC " + login + " /r/n ",null,1);
