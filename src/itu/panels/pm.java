@@ -77,7 +77,7 @@ public class pm extends javax.swing.JFrame implements ActionListener, FocusListe
     String path = System.getProperty("user.dir");
     URL url = getClass().getResource(path);
     Image image = Toolkit.getDefaultToolkit().getImage("src/itu/1.jpg");
-    // BufferedImage image = ImageIO.read(new File(path + "/src/itu/1.jpg"));
+   
 
     JButton send;
     JButton smiley;
@@ -116,39 +116,7 @@ public class pm extends javax.swing.JFrame implements ActionListener, FocusListe
         
         this.setTitle("Chat with: "+nm);
         
-        /*
-        friends = new JLabel(name);
-        Send_text_field = new JTextField();
-        //chat_space = new JTextArea();
-        chat_space = new JTextPane();
-        send = new JButton("Send");
-        send.addActionListener(this);
-
-        smiley = new JButton("Smiley");
-        smiley.addActionListener(this);
-
-        doc = chat_space.getStyledDocument();
-        style = doc.addStyle("StyleName", null);
-
-        Send_text_field.setBounds(40, 280, 500, 100);
-        // chat_space.setBounds(40,20,500,250);
-        chat_space.setSize(500, 250);
-        smiley.setBounds(600, 100, 100, 30);
-        send.setBounds(600, 200, 100, 30);
-        friends.setBounds(0, 0, 100, 20);
-        scroll = new JScrollPane(chat_space);
-        scroll.setBounds(0, 0, 500, 250);
-
-        this.add(Send_text_field);
-        this.add(chat_space);
-        this.add(smiley);
-        this.add(send);
-        this.add(friends);
-        this.add(scroll);
-
-                  //  ListenThread();
-        this.repaint();
-        */
+       
         
         initComponents();
         
@@ -174,13 +142,10 @@ public class pm extends javax.swing.JFrame implements ActionListener, FocusListe
         chat_space.setSize(200, 400);
         scroll2 = new JScrollPane(chat_space);
         scroll2.setBounds(20, 20, 770, 470);
-        //chat_space.setBackground(Color.red);
-       // chat_space.setBounds(20, 20, 770, 470);
+     
         scroll2.setBorder(BorderFactory.createMatteBorder(0, 0, 0, 0, new Color(204, 204, 204)));
         content.add(scroll2);
-       // content.add(chat_space);
-        
-
+   
         
         doc = chat_space.getStyledDocument();
         chat_space.setEditable(false);
@@ -237,8 +202,7 @@ public class pm extends javax.swing.JFrame implements ActionListener, FocusListe
         smiley.addActionListener(this);
         try {
             BufferedImage originalImage = ImageIO.read(getClass().getResource("t.png"));
-            //int type = originalImage.getType() == 0? BufferedImage.TYPE_INT_ARGB : originalImage.getType();
-            //BufferedImage resizeImagePng = resizeImage(originalImage, type);
+            
             smiley.setIcon(new ImageIcon(originalImage));
         } catch (Exception ex) {
             System.out.println(ex);
@@ -323,7 +287,7 @@ public class pm extends javax.swing.JFrame implements ActionListener, FocusListe
 
                     Send_text_field.requestFocus();
                 } catch (Exception ex) {
-                    //chat_space.append("Message was not sent. \n");
+                  
                 }
                 Send_text_field.setText("");
                 Send_text_field.requestFocus();

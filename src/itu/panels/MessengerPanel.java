@@ -96,7 +96,7 @@ public class MessengerPanel extends javax.swing.JPanel implements ActionListener
     public MessengerPanel(ClientBean bean) {
         this.bean = bean;
         
-        
+         
         
         initComponents();
     }

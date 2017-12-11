@@ -69,7 +69,7 @@ public class parser {
         this.bean = bean;
         pan = bean.getMessenger();
         bean.setParser(this);
-       // style = doc.addStyle("StyleName", null);
+      
         
         // Odesilate style
         senderStyle = new SimpleAttributeSet();
@@ -134,8 +134,7 @@ public class parser {
                 store5.add(i);
             }
         }
-        System.out.format("we cool chat");
-        System.out.format(message);
+      
         docu.insertString(docu.getLength(), who, senderStyle);
         pm mypm = (pm) pms.get(who);
         style = mypm.st();
@@ -151,7 +150,7 @@ public class parser {
                 StyleConstants.setIcon(style, new ImageIcon(image));
                 docu.insertString(docu.getLength(), "ignoring", style);
                 store.clear();
-                 System.out.format("wwhatsss");
+                
                
             } else if (store1.contains(i)) {
 
@@ -247,14 +246,13 @@ public class parser {
             for (int i = sender[0].length()+2; i < message[1].length(); i++) {
                 String prt = "" + message[1].charAt(i);
 
-                //System.out.format(Integer.toString(message[1].length()));
+            
                 
                 if (store.contains(i)) // nahradi retezec smajlikem
                 {
 
                     i = i + 7;
-                    /* StyleConstants.setIcon(style, new ImageIcon(image));
-                     doc.insertString(doc.getLength(), "ignoring", style); */
+                  
                     pan.serverSendMessage(prt, 2, image);
                     store.clear();
                 } else if (store1.contains(i)) {
@@ -283,9 +281,9 @@ public class parser {
                     pan.serverSendMessage(prt, 2, image5);
                     store5.clear();
                 } else {
-                    //System.out.format("mess");
+                  
                     pan.serverSendMessage(prt, 1, image);
-                    // doc.insertString(doc.getLength(), prt, null);
+                 
                 }
             }
             
@@ -303,8 +301,7 @@ public class parser {
 
         } else if (message[0].equals("DIS OK")) {  // odpojeni 
             
-            System.out.format("niggersjewsci ");
-            System.out.format(message[1]);
+            
             connected.remove(message[1]);
             
             // nastaveni novych lidi
@@ -314,8 +311,7 @@ public class parser {
             
             String sender = message[1].trim();
             
-            System.out.format("niggersjewsci ");
-            System.out.format(sender);
+          
             
             // show upozorneni u pritele
             bean.getFriendsList().notifyOnFriend(sender, true);
@@ -325,7 +321,7 @@ public class parser {
                 // okno je vytvore
                 StyledDocument per = (StyledDocument) docs.get(sender);
                 printer(message[2], per, sender,login);
-                //   per.insertString(per.getLength(),message[2], null);
+              
                 
             } else {
                 
@@ -336,13 +332,12 @@ public class parser {
                 pms.put(sender, mes);
                 StyledDocument per = (StyledDocument) docs.get(sender);
                 printer(message[2], per, sender,login);
-                // per.insertString(per.getLength(),message[2], null); 
+         
             }
 
         } else {
 
-                        // doc.insertString(doc.getLength(), stream, null);
-            // chat_space.setCaretPosition(chat_space.getDocument().getLength());
+                    
         }
         
         

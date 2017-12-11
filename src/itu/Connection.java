@@ -156,121 +156,13 @@ public class Connection {
                  System.out.format("what");
                 while ((stream = read.readLine()) != null) {
 
-                    // doc.insertString(doc.getLength(), stream, null);
+                
                     message = stream.split(":");
                     System.out.format(stream);
                     par.parse(message);
                     
                     
 
-                 /*   if (message[0].equals("MUC OK")) {
-
-                        if (message[1].contains("Sx(fun)")) {
-                            for (int i = -1; (i = message[1].indexOf("Sx(fun)", i + 1)) != -1; i++) { // doplni indexy s nalezenym retezcem
-                                store.add(i);
-                            }
-                        } else if (message[1].contains("Sx(1)")) {
-                            for (int i = -1; (i = message[1].indexOf("Sx(1)", i + 1)) != -1; i++) {
-                                store.add(i);
-                            }
-                        } else if (message[1].contains("Sx(2)")) {
-                            for (int i = -1; (i = message[1].indexOf("Sx(2)", i + 1)) != -1; i++) {
-                                store.add(i);
-                            }
-                        } else if (message[1].contains("Sx(3)")) {
-                            for (int i = -1; (i = message[1].indexOf("Sx(3)", i + 1)) != -1; i++) {
-                                store.add(i);
-                            }
-                        } else if (message[1].contains("Sx(4)")) {
-                            for (int i = -1; (i = message[1].indexOf("Sx(4)", i + 1)) != -1; i++) {
-                                store.add(i);
-                            }
-                        } else if (message[1].contains("Sx(5)")) {
-                            for (int i = -1; (i = message[1].indexOf("Sx(5)", i + 1)) != -1; i++) {
-                                store.add(i);
-                            }
-                        }
-
-                        for (int i = 0; i < message[1].length(); i++) {
-                            String prt = "" + message[1].charAt(i);
-                           
-                            System.out.format(Integer.toString(message[1].length()));
-                            if (store.contains(i)) // nahradi retezec smajlikem
-                            {
-
-                                i = i + 7;
-                             
-                                pan.serverSendMessage(prt, 2 , image);
-                                store.clear();
-                            } else if (store1.contains(i)) {
-
-                                i = i + 7;
-                                pan.serverSendMessage(prt, 2 , image1);
-                                store.clear();
-                            } else if (store2.contains(i)) {
-
-                                i = i + 7;
-                               pan.serverSendMessage(prt, 2 , image2);
-                                store.clear();
-                            } else if (store3.contains(i)) {
-
-                                i = i + 7;
-                                pan.serverSendMessage(prt, 2 , image3);
-                                store.clear();
-                            } else if (store4.contains(i)) {
-
-                                i = i + 7;
-                                pan.serverSendMessage(prt, 2 , image4);
-                                store.clear();
-                            } else if (store5.contains(i)) {
-
-                                i = i + 7;
-                                pan.serverSendMessage(prt, 2 , image5);
-                                store.clear();
-                            } else {
-                                 System.out.format("mess");
-                                 pan.serverSendMessage(prt, 1 , image);
-                               // doc.insertString(doc.getLength(), prt, null);
-                            }
-                        }
-
-                    } else if (message[0].equals("LOG OK")) {
-
-                        for (String user : message[1].split(",")) {
-                            connected.add(user);
-                        }
-                        
-                        
-
-                    } else if (message[0].equals("DIS OK")) {
-                        System.out.format("niggersjewsci ");
-                        System.out.format(message[1]);
-                        connected.remove(message[1]);
-                        
-                    } else if (message[0].equals("SIC OK")) {
-                        System.out.format("niggersjewsci ");
-                        System.out.format(message[1]);
-                        if (docs.containsKey(message[1])) {
-
-                            StyledDocument per = (StyledDocument) docs.get(message[1]);
-                            // todo printer(message[2], per);
-                            //   per.insertString(per.getLength(),message[2], null); 
-                        } else {
-                            pm mes = new pm(message[1], login); //mesaage[1] sender
-                            mes.pipes(username, read, write);
-                            docs.put(message[1], mes.docs());
-                            StyledDocument per = (StyledDocument) docs.get(message[1]);
-                           // printer(message[2], per);
-                           // per.insertString(per.getLength(),message[2], null); 
-                        }
-
-                    } else {
-
-                        // doc.insertString(doc.getLength(), stream, null);
-                        // chat_space.setCaretPosition(chat_space.getDocument().getLength());
-                    }
-
-                    doc.insertString(doc.getLength(), "\n", null);*/
                 }
             }
             catch (Exception ex) {
@@ -295,7 +187,7 @@ public class Connection {
                 sock = new Socket("147.229.216.205", 21201);
                 //sock = new Socket("12.12.12.6", 21201);
                 //sock = new Socket("62.245.118.128", 21201);
-                //sock.setSoTimeout(10000);
+            
                 InputStreamReader streamreader = new InputStreamReader(sock.getInputStream());
                 read = new BufferedReader(streamreader);
                 write = new PrintWriter(sock.getOutputStream());
@@ -307,9 +199,7 @@ public class Connection {
             } catch (Exception ex) {
 
                 ListenThread();
-                //   doc.insertString(doc.getLength(), "cant connect", keyWord);
-                //chat_space.append("Cannot Connect! Try Again. \n");
-                
+              
 
             }
         }

@@ -63,10 +63,11 @@ public class smileys extends JFrame implements ActionListener {
         URL url = getClass().getResource(path);
      
 
-       // BufferedImage image = ImageIO.read(new File(path + "/src/itu/pozadi.png"));
+     
         write = p;
         type = msg;
-      //  type2 = msg2;
+   
+       
         pmuse = personal;
         mode = mod;
         smiley1 = new JButton(new ImageIcon(image));
@@ -120,14 +121,14 @@ public class smileys extends JFrame implements ActionListener {
             {
                 try {
                     pmuse.smileyShow("",image);
-                    // write.println(type2 + "Sx(fun)");
+                   
                 } catch (BadLocationException ex) {
                     Logger.getLogger(smileys.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
             
             write.flush();
-            System.out.format(type + "Sx(fun)");
+           
             dispatchEvent(new WindowEvent(this, WindowEvent.WINDOW_CLOSING));
         } else if (e.getSource() == smiley) {
             write.println(type + "Sx(1)");
@@ -135,13 +136,13 @@ public class smileys extends JFrame implements ActionListener {
             {
                 try {
                     pmuse.smileyShow("",image1);
-                    // write.println(type2 + "Sx(fun)");
+                  
                 } catch (BadLocationException ex) {
                     Logger.getLogger(smileys.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
             write.flush();
-            System.out.format("niggers");
+           
             dispatchEvent(new WindowEvent(this, WindowEvent.WINDOW_CLOSING));
         } else if (e.getSource() == smiley2) {
             write.println(type + "Sx(2)");
@@ -149,13 +150,13 @@ public class smileys extends JFrame implements ActionListener {
             {
                 try {
                     pmuse.smileyShow("",image2);
-                    // write.println(type2 + "Sx(fun)");
+                    
                 } catch (BadLocationException ex) {
                     Logger.getLogger(smileys.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
             write.flush();
-            System.out.format("niggers2");
+           
             dispatchEvent(new WindowEvent(this, WindowEvent.WINDOW_CLOSING));
         } else if (e.getSource() == smiley3) {
             write.println(type + "Sx(3)");
@@ -163,13 +164,13 @@ public class smileys extends JFrame implements ActionListener {
             {
                 try {
                     pmuse.smileyShow("",image3);
-                    // write.println(type2 + "Sx(fun)");
+                  
                 } catch (BadLocationException ex) {
                     Logger.getLogger(smileys.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
             write.flush();
-            System.out.format("niggers3");
+        
             dispatchEvent(new WindowEvent(this, WindowEvent.WINDOW_CLOSING));
         } else if (e.getSource() == smiley4) {
             write.println(type + "Sx(4)");
@@ -177,13 +178,13 @@ public class smileys extends JFrame implements ActionListener {
             {
                 try {
                         pmuse.smileyShow("",image4);
-                        // write.println(type2 + "Sx(fun)");
+                       
                     } catch (BadLocationException ex) {
                         Logger.getLogger(smileys.class.getName()).log(Level.SEVERE, null, ex);
                     }
             }
             write.flush();
-            System.out.format("niggers4");
+           
             dispatchEvent(new WindowEvent(this, WindowEvent.WINDOW_CLOSING));
 
         } else if (e.getSource() == smiley5) {
@@ -192,13 +193,13 @@ public class smileys extends JFrame implements ActionListener {
             {
              try {
                     pmuse.smileyShow("",image5);
-                    // write.println(type2 + "Sx(fun)");
+                   
                 } catch (BadLocationException ex) {
                     Logger.getLogger(smileys.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
             write.flush();
-            System.out.format("niggers5");
+         
             dispatchEvent(new WindowEvent(this, WindowEvent.WINDOW_CLOSING));
         }
     }

@@ -59,7 +59,7 @@ public class ClientFrame extends JFrame  implements WindowListener,
         container.fill = GridBagConstraints.HORIZONTAL;
         
         this.getContentPane().setBackground(Color.white);
-
+        this.setTitle("All chat");
         this.setPreferredSize(new Dimension(1000, 800));
         this.pack();
         this.setLocationRelativeTo(null);
