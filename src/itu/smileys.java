@@ -173,24 +173,30 @@ public class smileys extends JFrame implements ActionListener {
             dispatchEvent(new WindowEvent(this, WindowEvent.WINDOW_CLOSING));
         } else if (e.getSource() == smiley4) {
             write.println(type + "Sx(4)");
-            try {
-                    pmuse.smileyShow("",image4);
-                    // write.println(type2 + "Sx(fun)");
-                } catch (BadLocationException ex) {
-                    Logger.getLogger(smileys.class.getName()).log(Level.SEVERE, null, ex);
-                }
+            if(mode == 2)
+            {
+                try {
+                        pmuse.smileyShow("",image4);
+                        // write.println(type2 + "Sx(fun)");
+                    } catch (BadLocationException ex) {
+                        Logger.getLogger(smileys.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+            }
             write.flush();
             System.out.format("niggers4");
             dispatchEvent(new WindowEvent(this, WindowEvent.WINDOW_CLOSING));
 
         } else if (e.getSource() == smiley5) {
             write.println(type + "Sx(5)");
+            if(mode == 2)
+            {
              try {
                     pmuse.smileyShow("",image5);
                     // write.println(type2 + "Sx(fun)");
                 } catch (BadLocationException ex) {
                     Logger.getLogger(smileys.class.getName()).log(Level.SEVERE, null, ex);
                 }
+            }
             write.flush();
             System.out.format("niggers5");
             dispatchEvent(new WindowEvent(this, WindowEvent.WINDOW_CLOSING));
